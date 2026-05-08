@@ -3,8 +3,13 @@ import { useState, useEffect, useRef } from 'react'
 import imgProximity   from '../assets/ProximitySensor.jpeg'
 import imgLimitSwitch from '../assets/LimitSwitch.jpeg'
 import imgDCDrives    from '../assets/dcdrives.jpeg'
-import imgPLC         from '../assets/plc.jpeg'
-
+import imgPLC         from '../assets/SimensePlc.webp'
+import a              from '../assets/a.jpeg'
+import b              from '../assets/b.jpeg'
+import c              from '../assets/c.jpeg'
+import d              from '../assets/d.jpeg'
+import e              from '../assets/e.jpeg'
+import f              from '../assets/f.png'
 
 const slides = [
   {
@@ -39,37 +44,38 @@ const slides = [
 
 // ─── STATS DATA ───────────────────────────────
 const statsData = [
-  {target: 50, suffix: '+', label: 'Products Delivered' },
-  { target: 2,  suffix: '+', label: 'Years Experience'   },
-  {  target: 20, suffix: '+', label: 'Happy Clients'      },
-  {  target: 24,  suffix: '/7', label: 'Support Available' },
+  { target: 50, suffix: '+',  label: 'Products Delivered' },
+  { target: 2,  suffix: '+',  label: 'Years Experience'   },
+  { target: 20, suffix: '+',  label: 'Happy Clients'      },
+  { target: 24, suffix: '/7', label: 'Support Available'  },
 ]
 
 // ─── PRODUCT CARDS ────────────────────────────
 const cards = [
-  { icon: '🏭', title: 'PLC Systems',  desc: 'Siemens, Allen Bradley, Mitsubishi' },
-  { icon: '⚡', title: 'VFD Drives',   desc: 'AC/DC drives for all motor types'   },
-  { icon: '🔬', title: 'Sensors',      desc: 'Proximity, Photo, Pressure, Temp'  },
-  { icon: '🔧', title: 'Panels',       desc: 'Custom MCC & control panels'        },
+  { icon: '🏭', title: 'PLC Systems', desc: 'Siemens, Allen Bradley, Mitsubishi' },
+  { icon: '⚡', title: 'VFD Drives',  desc: 'AC/DC drives for all motor types'   },
+  { icon: '🔬', title: 'Sensors',     desc: 'Proximity, Photo, Pressure, Temp'  },
+  { icon: '🔧', title: 'Panels',      desc: 'Custom MCC & control panels'        },
 ]
-//Brand//
+
+// ─── BRANDS ───────────────────────────────────
 const brands = [
-  { name: 'Siemens', logo: 'https://www.siemens.com/etc/designs/siemenscom/client-libraries/images/favicon.ico', color: '#009999' },
-  { name: 'ABB', logo: 'https://new.abb.com/etc/designs/abb/images/abb-logo.svg', color: '#FF000F' },
-  { name: 'Schneider', logo: 'https://www.se.com/etc/designs/se-site/favicon.ico', color: '#3DCD58' },
-  { name: 'Delta', logo: 'https://www.deltaww.com/favicon.ico', color: '#E31837' },
-  { name: 'Mitsubishi', logo: 'https://www.mitsubishielectric.com/favicon.ico', color: '#E60012' },
-  { name: 'Omron', logo: 'https://www.omron.com/favicon.ico', color: '#CC0000' },
-  { name: 'Honeywell', logo: 'https://www.honeywell.com/favicon.ico', color: '#FC1D21' },
-  { name: 'Rockwell', logo: 'https://www.rockwellautomation.com/favicon.ico', color: '#005B94' },
-  { name: 'Yaskawa', logo: 'https://www.yaskawa.com/favicon.ico', color: '#003087' },
-  { name: 'Danfoss', logo: 'https://www.danfoss.com/favicon.ico', color: '#E2000F' },
-  { name: 'Bosch', logo: 'https://www.bosch.com/favicon.ico', color: '#EA0016' },
-  { name: 'Makita', logo: 'https://www.makita.com/favicon.ico', color: '#00A0DC' },
-  { name: 'DeWalt', logo: 'https://www.dewalt.com/favicon.ico', color: '#FEBD17' },
-  { name: 'Taparia', logo: 'https://www.taparia.com/favicon.ico', color: '#E31837' },
-  { name: 'Fenner', logo: 'https://www.fenner.com/favicon.ico', color: '#003087' },
-  { name: 'Rexnord', logo: 'https://www.rexnord.com/favicon.ico', color: '#E2000F' },
+  { name: 'Siemens',    logo: 'https://www.siemens.com/etc/designs/siemenscom/client-libraries/images/favicon.ico',  color: '#009999' },
+  { name: 'ABB',        logo: 'https://new.abb.com/etc/designs/abb/images/abb-logo.svg',                             color: '#FF000F' },
+  { name: 'Schneider',  logo: 'https://www.se.com/etc/designs/se-site/favicon.ico',                                  color: '#3DCD58' },
+  { name: 'Delta',      logo: 'https://www.deltaww.com/favicon.ico',                                                 color: '#E31837' },
+  { name: 'Mitsubishi', logo: 'https://www.mitsubishielectric.com/favicon.ico',                                       color: '#E60012' },
+  { name: 'Omron',      logo: 'https://www.omron.com/favicon.ico',                                                   color: '#CC0000' },
+  { name: 'Honeywell',  logo: 'https://www.honeywell.com/favicon.ico',                                               color: '#FC1D21' },
+  { name: 'Rockwell',   logo: 'https://www.rockwellautomation.com/favicon.ico',                                      color: '#005B94' },
+  { name: 'Yaskawa',    logo: 'https://www.yaskawa.com/favicon.ico',                                                 color: '#003087' },
+  { name: 'Danfoss',    logo: 'https://www.danfoss.com/favicon.ico',                                                 color: '#E2000F' },
+  { name: 'Bosch',      logo: 'https://www.bosch.com/favicon.ico',                                                   color: '#EA0016' },
+  { name: 'Makita',     logo: 'https://www.makita.com/favicon.ico',                                                  color: '#00A0DC' },
+  { name: 'DeWalt',     logo: 'https://www.dewalt.com/favicon.ico',                                                  color: '#FEBD17' },
+  { name: 'Taparia',    logo: 'https://www.taparia.com/favicon.ico',                                                 color: '#E31837' },
+  { name: 'Fenner',     logo: 'https://www.fenner.com/favicon.ico',                                                  color: '#003087' },
+  { name: 'Rexnord',    logo: 'https://www.rexnord.com/favicon.ico',                                                 color: '#E2000F' },
 ]
 
 // ═══════════════════════════════════════════════
@@ -132,7 +138,6 @@ function StatsBar() {
         overflow: 'hidden',
       }}
     >
-      {/* Decorative gear bg */}
       <div style={{
         position: 'absolute', right: '-40px', top: '-40px',
         fontSize: '200px', opacity: 0.05, userSelect: 'none', color: '#fff',
@@ -152,7 +157,6 @@ function StatsBar() {
               padding: '8px 16px',
             }}
           >
-            <div style={{ fontSize: '24px', marginBottom: '8px' }}>{s.icon}</div>
             <div style={{
               color: '#fff', fontSize: '42px', fontWeight: '800',
               lineHeight: 1, display: 'flex', alignItems: 'baseline',
@@ -187,7 +191,6 @@ function Hero() {
   const [prevSlide, setPrevSlide] = useState(null)
   const [textVisible, setTextVisible] = useState(true)
 
-  // Auto-slide every 4 seconds
   useEffect(() => {
     const t = setInterval(() => goTo((slide + 1) % slides.length), 4000)
     return () => clearInterval(t)
@@ -261,7 +264,6 @@ function Hero() {
             transition: 'opacity 0.4s ease, transform 0.4s ease',
           }}>
 
-            {/* Badge */}
             <div style={{
               display: 'inline-block',
               background: '#0047AB', color: '#fff',
@@ -273,12 +275,10 @@ function Hero() {
               {s.badge}
             </div>
 
-            {/* Tag */}
             <div style={{ color: '#93c5fd', fontSize: '13px', fontWeight: '600', marginBottom: '12px' }}>
               {s.tag}
             </div>
 
-            {/* Title */}
             <h1 style={{
               fontSize: 'clamp(28px, 3.5vw, 50px)',
               fontWeight: '800', color: '#ffffff',
@@ -288,7 +288,6 @@ function Hero() {
               {s.title}
             </h1>
 
-            {/* Subtitle */}
             <p style={{
               color: 'rgba(255,255,255,0.82)',
               fontSize: '16px', lineHeight: '1.75',
@@ -297,7 +296,6 @@ function Hero() {
               {s.sub}
             </p>
 
-            {/* CTA Buttons */}
             <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
               <button
                 onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
@@ -331,7 +329,6 @@ function Hero() {
               </button>
             </div>
 
-            {/* Slide Dots */}
             <div style={{ display: 'flex', gap: '8px', marginTop: '32px', alignItems: 'center' }}>
               {slides.map((_, i) => (
                 <button
@@ -384,7 +381,7 @@ function Hero() {
 
         </div>
 
-        {/* Slide progress bar at bottom */}
+        {/* Slide progress bar */}
         <div style={{
           position: 'absolute', bottom: 0, left: 0, right: 0,
           height: '3px', background: 'rgba(255,255,255,0.15)', zIndex: 4,
@@ -403,72 +400,71 @@ function Hero() {
       <StatsBar />
 
       {/* ── BRANDS BAR ── */}
-{/* Brands Slider */}
-<div style={{ background: '#f8fafc', borderBottom: '1px solid #e8edf5', padding: '18px 0', overflow: 'hidden' }}>
-  <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div style={{ background: '#f8fafc', borderBottom: '1px solid #e8edf5', padding: '18px 0', overflow: 'hidden' }}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
 
-    <div style={{ padding: '0 24px', flexShrink: 0, borderRight: '2px solid #e2e8f0' }}>
-      <span style={{ color: '#94a3b8', fontSize: '10px', fontWeight: '800', letterSpacing: '0.12em', whiteSpace: 'nowrap' }}>
-        AUTHORIZED<br />DISTRIBUTOR
-      </span>
-    </div>
+          <div style={{ padding: '0 24px', flexShrink: 0, borderRight: '2px solid #e2e8f0' }}>
+            <span style={{ color: '#94a3b8', fontSize: '10px', fontWeight: '800', letterSpacing: '0.12em', whiteSpace: 'nowrap' }}>
+              AUTHORIZED<br />DISTRIBUTOR
+            </span>
+          </div>
 
-    <div style={{ overflow: 'hidden', flex: 1, position: 'relative' }}>
-      <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '80px', background: 'linear-gradient(to right, #f8fafc, transparent)', zIndex: 2, pointerEvents: 'none' }} />
-      <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '80px', background: 'linear-gradient(to left, #f8fafc, transparent)', zIndex: 2, pointerEvents: 'none' }} />
+          <div style={{ overflow: 'hidden', flex: 1, position: 'relative' }}>
+            <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '80px', background: 'linear-gradient(to right, #f8fafc, transparent)', zIndex: 2, pointerEvents: 'none' }} />
+            <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '80px', background: 'linear-gradient(to left, #f8fafc, transparent)', zIndex: 2, pointerEvents: 'none' }} />
 
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        animation: 'brandSlide 30s linear infinite',
-        width: 'max-content',
-      }}>
-        {[...brands, ...brands].map((brand, i) => (
-          <div key={i} style={{ flexShrink: 0, margin: '0 16px' }}>
             <div style={{
-              background: '#fff',
-              border: '1px solid #e2e8f0',
-              borderRadius: '8px',
-              padding: '8px 16px',
               display: 'flex',
               alignItems: 'center',
-              gap: '8px',
-              boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
-              transition: 'all 0.2s',
-              minWidth: '120px',
-              justifyContent: 'center',
-            }}
-              onMouseOver={e => { e.currentTarget.style.boxShadow = '0 4px 14px rgba(0,71,171,0.15)'; e.currentTarget.style.borderColor = '#0047AB'; e.currentTarget.style.transform = 'translateY(-2px)' }}
-              onMouseOut={e => { e.currentTarget.style.boxShadow = '0 1px 4px rgba(0,0,0,0.06)'; e.currentTarget.style.borderColor = '#e2e8f0'; e.currentTarget.style.transform = 'translateY(0)' }}
-            >
-              <img
-                src={brand.logo}
-                alt={brand.name}
-                style={{ width: '20px', height: '20px', objectFit: 'contain' }}
-                onError={e => {
-                  e.target.style.display = 'none'
-                  e.target.nextSibling.style.display = 'flex'
-                }}
-              />
-              {/* Color dot fallback */}
-              <div style={{ display: 'none', width: '10px', height: '10px', borderRadius: '50%', background: brand.color, flexShrink: 0 }} />
-              <span style={{ fontWeight: '800', fontSize: '12px', color: '#1e293b', letterSpacing: '0.04em', whiteSpace: 'nowrap' }}>
-                {brand.name}
-              </span>
+              animation: 'brandSlide 30s linear infinite',
+              width: 'max-content',
+            }}>
+              {[...brands, ...brands].map((brand, i) => (
+                <div key={i} style={{ flexShrink: 0, margin: '0 16px' }}>
+                  <div
+                    style={{
+                      background: '#fff',
+                      border: '1px solid #e2e8f0',
+                      borderRadius: '8px',
+                      padding: '8px 16px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
+                      transition: 'all 0.2s',
+                      minWidth: '120px',
+                      justifyContent: 'center',
+                    }}
+                    onMouseOver={e => { e.currentTarget.style.boxShadow = '0 4px 14px rgba(0,71,171,0.15)'; e.currentTarget.style.borderColor = '#0047AB'; e.currentTarget.style.transform = 'translateY(-2px)' }}
+                    onMouseOut={e => { e.currentTarget.style.boxShadow = '0 1px 4px rgba(0,0,0,0.06)'; e.currentTarget.style.borderColor = '#e2e8f0'; e.currentTarget.style.transform = 'translateY(0)' }}
+                  >
+                    <img
+                      src={brand.logo}
+                      alt={brand.name}
+                      style={{ width: '20px', height: '20px', objectFit: 'contain' }}
+                      onError={e => {
+                        e.target.style.display = 'none'
+                        e.target.nextSibling.style.display = 'flex'
+                      }}
+                    />
+                    <div style={{ display: 'none', width: '10px', height: '10px', borderRadius: '50%', background: brand.color, flexShrink: 0 }} />
+                    <span style={{ fontWeight: '800', fontSize: '12px', color: '#1e293b', letterSpacing: '0.04em', whiteSpace: 'nowrap' }}>
+                      {brand.name}
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        ))}
-      </div>
-    </div>
-  </div>
+        </div>
 
-  <style>{`
-    @keyframes brandSlide {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-  `}</style>
-</div>
+        <style>{`
+          @keyframes brandSlide {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+        `}</style>
+      </div>
 
     </section>
   )

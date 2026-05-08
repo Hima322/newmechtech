@@ -22,7 +22,7 @@ const serviceLinks = [
 ]
 
 const contactItems = [
-  { icon: '📍', text: 'Shop no.1, First Floor\nVillage Bhagwanpur, Barwla Road,\nDarabassi, Punjab – 140507' },
+  { icon: '📍', text: 'Shop no.1, First Floor\nVillage Bhagwanpur, Barwla Road,\nDera Bassi, Punjab – 140507' },
   { icon: '📞', text: '+91-7696939529\n+91-9917592721' },
   { icon: '📧', text: 'newmechtechindia@gmail.com' },
   { icon: '⏰', text: 'Mon–Sat: 9 AM – 7 PM' },
@@ -166,7 +166,7 @@ function Footer() {
               <p style={{ fontSize: '14px', lineHeight: '1.8', color: '#94a3b8', marginBottom: '20px', maxWidth: '300px' }}>
                 North-Western India's most trusted supplier of industrial automation
                 components, PLC systems, VFDs, sensors and control panels.
-                Serving manufacturers since 2012.
+                Serving  since 2026.
               </p>
 
               {/* Certifications */}

@@ -23,73 +23,56 @@ function About() {
           grid-template-columns: repeat(3, 1fr);
           gap: 24px;
         }
-        #about .owner-grid {
-          display: grid;
-          grid-template-columns: auto 1fr;
-          gap: 40px;
-          align-items: start;
-        }
-        #about .cta-btns {
+        #about .founder-inner {
           display: flex;
-          gap: 14px;
-          flex-wrap: wrap;
+          gap: 0;
+          align-items: stretch;
         }
-        #about .cert-badges {
+        #about .founder-left {
+          width: 280px;
+          flex-shrink: 0;
+          background: linear-gradient(135deg, #0047AB 0%, #1565c0 60%, #38bdf8 100%);
+          border-radius: 20px 0 0 20px;
           display: flex;
-          gap: 10px;
-          flex-wrap: wrap;
-          margin-bottom: 28px;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 40px 24px;
+          text-align: center;
+          position: relative;
+          overflow: hidden;
+        }
+        #about .founder-right {
+          flex: 1;
+          padding: 40px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
         }
 
         @media (max-width: 900px) {
-          #about .about-grid {
-            grid-template-columns: 1fr !important;
-            gap: 40px !important;
-          }
-          #about .features-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
-          #about .owner-grid {
-            grid-template-columns: 1fr !important;
-            text-align: center;
-          }
-          #about .owner-grid .owner-avatar {
-            margin: 0 auto;
-          }
-          #about .owner-skills {
-            justify-content: center !important;
-          }
-          #about .owner-btns {
-            justify-content: center !important;
-          }
+          #about .about-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+          #about .features-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          #about .founder-inner { flex-direction: column !important; }
+          #about .founder-left { width: 100% !important; border-radius: 20px 20px 0 0 !important; padding: 32px 24px !important; }
+          #about .founder-right { padding: 28px 24px !important; }
         }
-
         @media (max-width: 600px) {
-          #about .features-grid {
-            grid-template-columns: 1fr !important;
-          }
-          #about .stats-grid {
-            grid-template-columns: 1fr 1fr !important;
-          }
-          #about .cta-btns {
-            flex-direction: column;
-          }
-          #about .cta-btns a,
-          #about .cta-btns button {
-            width: 100%;
-            text-align: center;
-          }
+          #about .features-grid { grid-template-columns: 1fr !important; }
+          #about .stats-grid { grid-template-columns: 1fr 1fr !important; }
+          #about .cert-badges { flex-wrap: wrap; }
+          #about .cta-btns { flex-direction: column; }
+          #about .cta-btns a, #about .cta-btns button { width: 100%; text-align: center; justify-content: center; }
+          #about .founder-contact-btns a { flex: 1; justify-content: center; }
         }
       `}</style>
 
       <section id="about" style={{ background: '#fff', padding: '80px 24px' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
 
-          {/* ── Section Header ── */}
+          {/* Header */}
           <div style={{ textAlign: 'center', marginBottom: '64px' }}>
-            <div style={{ display: 'inline-block', background: '#dbeafe', color: '#1e40af', padding: '6px 16px', borderRadius: '4px', fontSize: '12px', fontWeight: '700', letterSpacing: '0.1em', marginBottom: '16px' }}>
-              ABOUT US
-            </div>
+            <div style={{ display: 'inline-block', background: '#dbeafe', color: '#1e40af', padding: '6px 16px', borderRadius: '4px', fontSize: '12px', fontWeight: '700', letterSpacing: '0.1em', marginBottom: '16px' }}>ABOUT US</div>
             <h2 style={{ fontSize: 'clamp(26px, 4vw, 44px)', fontWeight: '800', color: '#0f172a', marginBottom: '16px', lineHeight: 1.2 }}>
               Northwestern India's Most Trusted<br />Industrial Automation Partner
             </h2>
@@ -98,10 +81,9 @@ function About() {
             </p>
           </div>
 
-          {/* ── Top Grid: Visual Card + Text ── */}
+          {/* Top Grid */}
           <div className="about-grid">
-
-            {/* Left — Visual Card */}
+            {/* Left Visual Card */}
             <div style={{ position: 'relative' }}>
               <div style={{
                 background: 'linear-gradient(135deg, #0047AB 0%, #1a6fd4 60%, #38bdf8 100%)',
@@ -112,10 +94,8 @@ function About() {
                 <div style={{ position: 'absolute', top: '-40px', right: '-40px', width: '220px', height: '220px', borderRadius: '50%', background: 'rgba(255,255,255,0.06)' }} />
                 <div style={{ position: 'absolute', top: '40px', right: '40px', width: '120px', height: '120px', borderRadius: '50%', background: 'rgba(255,255,255,0.06)' }} />
                 <div style={{ fontSize: '80px', position: 'absolute', top: '32px', left: '40px', opacity: 0.2 }}>⚙️</div>
-
                 <div style={{ fontSize: '52px', marginBottom: '8px', fontWeight: '800', lineHeight: 1 }}>2+</div>
                 <div style={{ fontSize: '18px', opacity: 0.85, marginBottom: '28px' }}>Years of Excellence</div>
-
                 <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                   {[['50+','Projects Done'],['20+','Happy Clients'],['16+','Brands Stocked'],['24/7','Support']].map(([v, l]) => (
                     <div key={l} style={{ background: 'rgba(255,255,255,0.12)', borderRadius: '10px', padding: '14px 16px', backdropFilter: 'blur(8px)' }}>
@@ -125,8 +105,6 @@ function About() {
                   ))}
                 </div>
               </div>
-
-              {/* Floating badge */}
               <div style={{
                 position: 'absolute', bottom: '-20px', left: '32px',
                 background: '#fff', borderRadius: '12px', padding: '14px 20px',
@@ -141,43 +119,34 @@ function About() {
               </div>
             </div>
 
-            {/* Right — About Text */}
+            {/* Right Text */}
             <div style={{ paddingTop: '16px' }}>
               <h3 style={{ fontSize: '26px', fontWeight: '800', color: '#0f172a', marginBottom: '16px', lineHeight: 1.3 }}>
                 Complete Industrial Automation & PLC Panel Solutions
               </h3>
               <p style={{ color: '#475569', lineHeight: '1.8', marginBottom: '16px', fontSize: '15px' }}>
-                Founded in 2024 by <strong style={{ color: '#0f172a' }}>Uma Bharti</strong>, New MechTech India is a trusted industrial automation supplier delivering advanced systems and engineering solutions. We specialize in PLC Panels, HMI Systems, SCADA Integration, VFD Drives, Sensors and Control Panels.
-              </p>
-              <p style={{ color: '#475569', lineHeight: '1.8', marginBottom: '16px', fontSize: '15px' }}>
-                We serve manufacturing plants, pharmaceuticals, packaging, textiles, food processing and infrastructure projects across Punjab, Haryana, HP and Delhi NCR.
+                Founded in 2024 by <strong style={{ color: '#0f172a' }}>Uma Bharti</strong>, New MechTech India delivers advanced automation systems. We specialize in PLC Panels, HMI Systems, SCADA, VFD Drives, Sensors and Control Panels.
               </p>
               <p style={{ color: '#475569', lineHeight: '1.8', marginBottom: '28px', fontSize: '15px' }}>
-                From PLC programming to complete turnkey automation solutions — we deliver reliable technology with professional after-sales support.
+                We serve manufacturing, pharma, packaging, textiles and food processing industries across India.
               </p>
-
-              {/* Certifications */}
-              <div className="cert-badges">
+              <div className="cert-badges" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '28px' }}>
                 {['GST Registered', 'MSME Registered', 'Authorized Dealer', 'Pan-India Delivery'].map(cert => (
-                  <span key={cert} style={{ background: '#f0f6ff', color: '#0047AB', border: '1px solid #bfdbfe', padding: '7px 14px', borderRadius: '6px', fontSize: '12px', fontWeight: '700' }}>
-                    {cert}
-                  </span>
+                  <span key={cert} style={{ background: '#f0f6ff', color: '#0047AB', border: '1px solid #bfdbfe', padding: '7px 14px', borderRadius: '6px', fontSize: '12px', fontWeight: '700' }}>{cert}</span>
                 ))}
               </div>
-
-              {/* CTA Buttons */}
-              <div className="cta-btns">
+              <div className="cta-btns" style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
                 <a href="tel:+917696939529" style={{ background: 'linear-gradient(135deg, #0047AB, #1a6fd4)', color: '#fff', padding: '13px 26px', borderRadius: '8px', fontWeight: '700', textDecoration: 'none', fontSize: '14px', boxShadow: '0 4px 14px rgba(0,71,171,0.3)', display: 'inline-block' }}>
                   📞 Call Us Now
                 </a>
-                <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: 'transparent', color: '#0047AB', border: '2px solid #0047AB', padding: '13px 26px', borderRadius: '8px', fontWeight: '700', fontSize: '14px', cursor: 'pointer' }}>
+                <button onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: 'transparent', color: '#0047AB', border: '2px solid #0047AB', padding: '13px 26px', borderRadius: '8px', fontWeight: '700', fontSize: '14px', cursor: 'pointer', fontFamily: 'inherit' }}>
                   Send Enquiry
                 </button>
               </div>
             </div>
           </div>
 
-          {/* ── Why Choose Us ── */}
+          {/* Why Choose Us */}
           <div style={{ marginBottom: '80px' }}>
             <h3 style={{ textAlign: 'center', fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: '800', color: '#0f172a', marginBottom: '40px' }}>
               Why Choose New MechTech India?
@@ -195,69 +164,80 @@ function About() {
             </div>
           </div>
 
-          {/* ── Founder Section ── */}
-          <div style={{ marginBottom: '20px' }}>
-            <h3 style={{ textAlign: 'center', fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: '800', color: '#0f172a', marginBottom: '40px' }}>
-              Meet The Founder
-            </h3>
+          {/* Founder Section */}
+        {/* Founder Section */}
+<div style={{ marginBottom: '20px' }}>
+  <h3 style={{ textAlign: 'center', fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: '800', color: '#0f172a', marginBottom: '40px' }}>
+    Meet The Founder
+  </h3>
 
-            <div style={{ maxWidth: '860px', margin: '0 auto', background: 'linear-gradient(135deg, #f0f6ff, #e8f0ff)', borderRadius: '24px', padding: '40px', border: '1px solid #bfdbfe', boxShadow: '0 8px 32px rgba(0,71,171,0.08)' }}>
-              <div className="owner-grid">
+  <div style={{
+    width: '100%',
+    background: 'linear-gradient(135deg, #0047AB 0%, #1565c0 60%, #38bdf8 100%)',
+    borderRadius: '20px',
+    padding: '36px 40px',
+    position: 'relative',
+    overflow: 'hidden',
+    boxShadow: '0 20px 60px rgba(0,71,171,0.2)'
+  }}>
 
-                {/* Avatar */}
-                <div className="owner-avatar" style={{ textAlign: 'center', flexShrink: 0 }}>
-                  <div style={{
-                    width: '130px', height: '130px',
-                    background: 'linear-gradient(135deg, #0047AB, #38bdf8)',
-                    borderRadius: '50%', display: 'flex', alignItems: 'center',
-                    justifyContent: 'center', fontSize: '58px',
-                    boxShadow: '0 8px 32px rgba(0,71,171,0.3)',
-                    border: '4px solid #fff', margin: '0 auto 16px',
-                  }}>
-                    👨‍💼
-                  </div>
-                  <div style={{ fontWeight: '800', color: '#0f172a', fontSize: '20px', marginBottom: '4px' }}>Mohit</div>
-                  <div style={{ color: '#0047AB', fontSize: '14px', fontWeight: '700', marginBottom: '8px' }}>Founder & Owner</div>
-                  <span style={{ background: '#dbeafe', color: '#1e40af', padding: '4px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: '700' }}>
-                    10+ Years Experience
-                  </span>
-                </div>
+    {/* Decorative */}
+    <div style={{ position: 'absolute', top: '-60px', right: '-60px', width: '220px', height: '220px', borderRadius: '50%', background: 'rgba(255,255,255,0.05)', pointerEvents: 'none' }} />
+    <div style={{ position: 'absolute', bottom: '-40px', left: '40%', width: '160px', height: '160px', borderRadius: '50%', background: 'rgba(255,255,255,0.05)', pointerEvents: 'none' }} />
 
-                {/* Details */}
-                <div>
-                  <h4 style={{ fontWeight: '800', color: '#0f172a', fontSize: '20px', marginBottom: '8px' }}>
-                    PLC & Industrial Automation Expert
-                  </h4>
-                  <p style={{ color: '#475569', fontSize: '14px', lineHeight: '1.8', marginBottom: '20px', background: '#fff', padding: '16px', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
-                    Mohit is the founder of New MechTech India with over 10 years of hands-on experience in industrial automation, PLC systems, VFD drives and control panel solutions. He has served 50+ clients across Punjab, Haryana, HP and Delhi NCR with precision automation support.
-                  </p>
+    {/* Content Row */}
+    <div style={{ display: 'flex', alignItems: 'center', gap: '32px', position: 'relative', zIndex: 1, flexWrap: 'wrap' }}>
 
-                  {/* Skills */}
-                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '24px' }} className="owner-skills">
-                    {['PLC Systems', 'VFD Drives', 'Panel Design', 'SCADA', 'Motor Control', 'HMI Programming'].map(skill => (
-                      <span key={skill} style={{ background: '#fff', color: '#0047AB', border: '1px solid #bfdbfe', padding: '5px 12px', borderRadius: '6px', fontSize: '12px', fontWeight: '600' }}>
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
+      {/* Avatar */}
+      <div style={{
+        width: '100px', height: '100px', flexShrink: 0,
+        borderRadius: '50%',
+        background: 'rgba(255,255,255,0.15)',
+        border: '3px solid rgba(255,255,255,0.5)',
+        display: 'flex', alignItems: 'center',
+        justifyContent: 'center', fontSize: '48px',
+        boxShadow: '0 6px 24px rgba(0,0,0,0.2)',
+        backdropFilter: 'blur(8px)',
+      }}>
+        👩‍💼
+      </div>
 
-                  {/* Contact */}
-                  <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }} className="owner-btns">
-                    <a href="tel:+917696939529" style={{ background: 'linear-gradient(135deg, #0047AB, #1a6fd4)', color: '#fff', padding: '10px 22px', borderRadius: '8px', textDecoration: 'none', fontSize: '14px', fontWeight: '700', boxShadow: '0 4px 14px rgba(0,71,171,0.3)', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                      📞 Call Now
-                    </a>
-                    <a href="https://wa.me/917696939529" target="_blank" rel="noreferrer" style={{ background: '#25D366', color: '#fff', padding: '10px 22px', borderRadius: '8px', textDecoration: 'none', fontSize: '14px', fontWeight: '700', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                      💬 WhatsApp
-                    </a>
-                    <a href="mailto:newmechtechindia@gmail.com" style={{ background: '#fff', color: '#0047AB', border: '2px solid #bfdbfe', padding: '10px 22px', borderRadius: '8px', textDecoration: 'none', fontSize: '14px', fontWeight: '700', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                      📧 Email
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
+      {/* Name + Role */}
+      <div style={{ flex: 1, minWidth: '180px' }}>
+        <div style={{ color: 'rgba(255,255,255,0.65)', fontSize: '11px', fontWeight: '700', letterSpacing: '0.18em', marginBottom: '6px' }}>
+          FOUNDER & OWNER
+        </div>
+        <h4 style={{ color: '#fff', fontSize: 'clamp(22px, 2.5vw, 30px)', fontWeight: '800', margin: '0 0 6px', letterSpacing: '-0.01em', lineHeight: 1.1 }}>
+          Uma Bharti
+        </h4>
+        <div style={{ color: 'rgba(255,255,255,0.75)', fontSize: '14px', fontWeight: '500' }}>
+          New MechTech India
+        </div>
+      </div>
+
+      {/* Contact Details */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', minWidth: '240px' }}>
+        {[
+          { icon: '📧', val: 'newmechtechindia@gmail.com', href: 'mailto:newmechtechindia@gmail.com' },
+          { icon: '📍', val: 'Dera Bassi, Punjab – 140507', href: null },
+          { icon: '⏰', val: 'Mon–Sat: 9 AM – 7 PM', href: null },
+        ].map((item, i) => (
+          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span style={{ fontSize: '16px', flexShrink: 0 }}>{item.icon}</span>
+            {item.href ? (
+              <a href={item.href} style={{ color: 'rgba(255,255,255,0.9)', fontSize: '13px', fontWeight: '600', textDecoration: 'none' }}>
+                {item.val}
+              </a>
+            ) : (
+              <span style={{ color: 'rgba(255,255,255,0.8)', fontSize: '13px', fontWeight: '500' }}>{item.val}</span>
+            )}
           </div>
+        ))}
+      </div>
 
+    </div>
+  </div>
+</div>
         </div>
       </section>
     </>

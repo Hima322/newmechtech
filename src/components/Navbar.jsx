@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import logo from '../assets/logo.png'
+import logoIcon from '../assets/LOGO.jpeg'
+import logoName from '../assets/LogoName.png'
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -33,13 +34,18 @@ function Navbar() {
         <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '80px' }}>
 
           {/* Logo */}
-          <div style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={() => scrollTo('home')}>
-            <img
-              src={logo}
-              alt="New MechTech India"
-              style={{ height: '75px', width: 'auto', objectFit: 'contain', mixBlendMode: 'multiply' }}
-            />
-          </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }} onClick={() => scrollTo('home')}>
+  <img
+    src={logoIcon}
+    alt="NMI"
+    style={{ height: '62px', width: '62px', objectFit: 'contain', borderRadius: '8px', mixBlendMode: 'multiply' }}
+  />
+  <img
+    src={logoName}
+    alt="New MechTech India"
+    style={{ height: '36px', width: 'auto', objectFit: 'contain', mixBlendMode: 'multiply' }}
+  />
+</div>
 
           {/* Desktop Nav Links */}
           <ul style={{ display: 'flex', gap: '4px', listStyle: 'none', margin: 0, padding: 0 }}>

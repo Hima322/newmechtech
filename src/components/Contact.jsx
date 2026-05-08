@@ -41,7 +41,7 @@ function Contact() {
           {/* Left Info */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {[
-              { icon: '📍', label: 'Address', val:  'Shop no.1, First Floor Village Bhagwanpur, Barwla Road,Darabassi, Punjab , 140507' },
+              { icon: '📍', label: 'Address', val:  'Shop no.1, First Floor Village Bhagwanpur, Barwla Road,Dera Bassi, Punjab , 140507' },
              
               { icon: '📞', label: 'Phone', val: '+91-98765-43210' },
               { icon: '📧', label: 'Email', val: 'newmechtechindia@gmail.com' },
