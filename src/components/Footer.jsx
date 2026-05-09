@@ -166,7 +166,7 @@ function Footer() {
               <p style={{ fontSize: '14px', lineHeight: '1.8', color: '#94a3b8', marginBottom: '20px', maxWidth: '300px' }}>
                 North-Western India's most trusted supplier of industrial automation
                 components, PLC systems, VFDs, sensors and control panels.
-                Serving  since 2026.
+                Serving  since 2024.
               </p>
 
               {/* Certifications */}
