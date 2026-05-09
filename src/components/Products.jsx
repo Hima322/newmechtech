@@ -1,1122 +1,1217 @@
-import { useState } from 'react'
+import { useState } from "react";
 
-// ─────────────────────────────────────────────────────────────
-//  IMAGES — place in src/assets/ and import below
-//  (Add more images as you get them)
-// ─────────────────────────────────────────────────────────────
-import imgProximity   from '../assets/ProximitySensor.jpeg'
-import imgLimitSwitch from '../assets/LimitSwitch.jpeg'
-import imgDCDrives    from '../assets/dcdrives.jpeg'
-import imgPLC         from '../assets/plc.jpeg'
-
-// ─────────────────────────────────────────────────────────────
-//  CATEGORIES
-// ─────────────────────────────────────────────────────────────
-const categories = [
-  { id: 'All',         icon: '🏭', label: 'All Products' },
-  { id: 'PLC',         icon: '🖥️', label: 'PLC Systems' },
-  { id: 'AC Drives',   icon: '⚡', label: 'AC Drives (VFD)' },
-  { id: 'DC Drives',   icon: '🔋', label: 'DC Drives' },
-  { id: 'Sensors',     icon: '📡', label: 'Sensors' },
-  { id: 'Pneumatics',  icon: '💨', label: 'Pneumatics' },
-  { id: 'Hydraulics',  icon: '💧', label: 'Hydraulics' },
-  { id: 'Mechanical',  icon: '⚙️', label: 'Mechanical' },
-  { id: 'Panels',      icon: '🗄️', label: 'Control Panels' },
-  { id: 'HMI',         icon: '📱', label: 'HMI & SCADA' },
-]
-
-// ─────────────────────────────────────────────────────────────
-//  PRODUCTS DATA
-// ─────────────────────────────────────────────────────────────
-const products = [
-
-  // ── PLC SYSTEMS ──────────────────────────────────────────
-  {
-    id: 1, cat: 'PLC', brand: 'Siemens', badge: 'All Series Available',
-    name: 'Siemens SIMATIC S7 Series PLC',
-    image: imgPLC,
-    available: ['S7-200', 'S7-300', 'S7-400', 'S7-1200', 'S7-1500', 'S5-100U', 'LOGO!', 'S7 Safety PLC'],
-    specs: [
-      'S7-1200: Compact, 14 DI/10 DO, PROFINET, 75KB Memory',
-      'S7-1500: High-end, up to 4MB, Motion Control',
-      'S7-300: Mid-range modular, extensive I/O expansion',
-      'S7-400: Large-scale process automation',
-      'LOGO!: Small logic module for basic automation',
-      'S7 Safety: TÜV certified safety functions (SIL 2/3)',
+// ─── DATA ─────────────────────────────────────────────────────
+const productsData = {
+  electrical: {
+    label: "Electrical",
+    icon: "⚡",
+    color: "#0047AB",
+    bg: "linear-gradient(135deg, #0047AB 0%, #1a6fd4 100%)",
+    desc: "All electrical automation components for industrial machinery",
+    subcategories: [
+      {
+        id: "plc",
+        name: "PLC Systems",
+        icon: "🖥️",
+        desc: "Programmable Logic Controllers – CPU, I/O Modules, Power Supply, Communication Modules",
+        brands: ["Siemens", "Mitsubishi", "Allen Bradley", "Delta", "Schneider", "Omron"],
+        items: [
+          "Siemens S7-1200 CPU 1214C",
+          "Siemens S7-1500 CPU 1511-1 PN",
+          "Siemens S7-300 CPU 315-2 DP",
+          "Mitsubishi FX3U-32MT/ES",
+          "Mitsubishi FX5U-32MT/ES",
+          "Allen Bradley MicroLogix 1100",
+          "Allen Bradley CompactLogix 5380",
+          "Delta DVP32ES200T",
+          "Schneider M221-24IO",
+          "Omron CP1H-X40DT-D",
+          "Siemens S7-1200 DI 16x24VDC",
+          "Siemens SM 1223 Digital I/O Module",
+          "Siemens SM 1231 Analog Input Module",
+          "Siemens SM 1232 Analog Output Module",
+          "Mitsubishi FX3U-4AD Analog Input",
+          "Siemens PROFIBUS DP Module",
+          "Siemens PROFINET Module CP 1243-1",
+          "Siemens S7-1200 Power Supply PM 1207",
+          "Siemens LOGO! 8 12/24RC",
+          "Delta DVP-SX2 Slim PLC",
+        ],
+      },
+      {
+        id: "vfd",
+        name: "AC Drives (VFD)",
+        icon: "🔄",
+        desc: "Variable Frequency Drives for motor speed control – 0.4kW to 400kW",
+        brands: ["ABB", "Siemens", "Mitsubishi", "Danfoss", "Delta", "Schneider"],
+        items: [
+          "ABB ACS510-01-025A-4 (11kW)",
+          "ABB ACS880-01-026A-3 (15kW)",
+          "Siemens SINAMICS G120 6.5A",
+          "Siemens MICROMASTER 420 0.55kW",
+          "Siemens SINAMICS V20 0.37kW",
+          "Mitsubishi FR-E740-0.75K",
+          "Mitsubishi FR-A840-00083 (3.7kW)",
+          "Danfoss FC302 5.5kW",
+          "Delta VFD007E21A (0.75kW)",
+          "Delta VFD055C43A (5.5kW)",
+          "Schneider ATV312H075M2 (0.75kW)",
+          "Schneider ATV630D11M3 (11kW)",
+          "ABB ACS150-03E-07A5-4 (3kW)",
+          "Yaskawa V1000 2.2kW",
+          "Lenze i550 7.5kW",
+          "Bosch Rexroth EFC 3610 1.5kW",
+          "WEG CFW700 4.0kW",
+          "Emotron FDU 5.5kW",
+          "Parker AC10 1.1kW",
+          "KEB COMBIVERT F5 2.2kW",
+        ],
+      },
+      {
+        id: "smps",
+        name: "SMPS / Power Supply",
+        icon: "🔋",
+        desc: "Switched Mode Power Supplies – 24VDC, 48VDC, 5VDC – 2A to 40A",
+        brands: ["Phoenix", "Siemens", "Meanwell", "Omron", "Schneider", "ABB"],
+        items: [
+          "Phoenix Contact QUINT-PS 24VDC/10A",
+          "Phoenix Contact TRIO-PS 24VDC/5A",
+          "Siemens SITOP PSU100S 24V/5A",
+          "Siemens SITOP PSU200M 24V/10A",
+          "Meanwell MDR-60-24 60W 24V",
+          "Meanwell HDR-100-24 100W 24V",
+          "Meanwell DRT-960-24 960W 3-Phase",
+          "Omron S8VS-06024 60W 24V",
+          "Schneider Phaseo ABL8 24V/5A",
+          "ABB CP-S 24/5.0 120W SMPS",
+          "Murrelektronik Mico 24VDC/4A",
+          "Wago 787-612 24V/2A",
+          "Phoenix Contact STEP-PS 24V/2.5A",
+          "Siemens SITOP PSU300S 24V/20A",
+          "Meanwell LRS-350-24 350W 24V",
+          "Omron S8VK-C06024 60W",
+          "Finder 78.12.1.230.2400 SMPS",
+          "Idec PS5R-VC24 60W DIN Rail",
+          "Phoenix Contact UNO-PS 24V/3.3A",
+          "Puls PIANO10.241 10A 24V",
+        ],
+      },
+      {
+        id: "sensors",
+        name: "Sensors",
+        icon: "📡",
+        desc: "Proximity, Photoelectric, Temperature, Pressure, Level Sensors",
+        brands: ["Sick", "Ifm", "Omron", "Balluff", "Pepperl+Fuchs", "Turck"],
+        items: [
+          "Sick IME08-1B5NSZT0S Inductive 8mm",
+          "Sick WT18-3P430 Photoelectric Sensor",
+          "Ifm IFB3003BBPKG/M Inductive 8mm",
+          "Ifm O6H200 Photoelectric 200mm",
+          "Omron E2B-M12KS04-M1-B1 Proximity",
+          "Omron E3FA-TP11 Photoelectric",
+          "Balluff BES M12MI-PSC80B-S04G",
+          "Pepperl+Fuchs NJ4-12GK-N Inductive",
+          "Turck Bi2-EG08-AP6X-H1141",
+          "Sick DT35-B15251 Distance Sensor",
+          "Autonics PRD30-15DP Proximity 30mm",
+          "Honeywell 14CE1-1 Microswitch",
+          "Keyence EX-422V Digital Amplifier",
+          "Baumer IFFM 08P1701/L Inductive",
+          "Leuze HTB 8/4-200-S12 Through Beam",
+          "Wenglor P1NC001PO3 Capacitive",
+          "IFM PK6521 Pressure Sensor",
+          "Endress+Hauser FTL33 Level Switch",
+          "Pt100 RTD Temperature Sensor 6mm",
+          "K-Type Thermocouple 0-1200°C",
+        ],
+      },
+      {
+        id: "safety",
+        name: "Safety Devices",
+        icon: "🛡️",
+        desc: "Safety Relays, Emergency Stop, Light Curtains, Safety PLCs",
+        brands: ["Pilz", "Sick", "Schmersal", "Omron", "Siemens", "Banner"],
+        items: [
+          "Pilz PNOZ X3 Safety Relay 24VDC",
+          "Pilz PNOZmulti 2 PNOZ m B0",
+          "Siemens 3SK1112-1AW20 Safety Relay",
+          "Sick i10-M0213 Safety Interlock",
+          "Sick S3000 Safety Laser Scanner",
+          "Omron F3SJ-A0825P14 Light Curtain",
+          "Schmersal AZM200-B1-2P Safety Switch",
+          "Banner EZ-SCREEN 14mm Safety Curtain",
+          "Fortress interlocks mGaurd",
+          "Telemecanique XY2CZ902H7 E-Stop",
+          "ABB Jokab Safety Tina 6A",
+          "Pilz PIT m3 Safety Mat",
+          "Sick UE410-MU3T3 Safety Controller",
+          "Rockwell 440G-MT47138 Safety Interlock",
+          "Schmersal BNS 303-11Z Safety Switch",
+          "Pilz PSEN me4 Magnetic Safety Switch",
+          "Reer Muting Sensor MR4",
+          "Siemens 3SE5 Position Switch",
+          "Banner EZ-SCREEN LS Safety Laser",
+          "Sick deTec4 Core Safety Light Curtain",
+        ],
+      },
+      {
+        id: "switchboard",
+        name: "Switchboard Components",
+        icon: "🔌",
+        desc: "MCB, MCCB, Contactors, Overload Relays, Isolators, Busbars",
+        brands: ["Siemens", "ABB", "Schneider", "L&T", "Legrand", "Havells"],
+        items: [
+          "Siemens 5SY6316-7 MCB C16A 3P",
+          "Siemens 3RV2011-1KA10 Motor Starter",
+          "Siemens 3RT2016-1AP01 Contactor 9A",
+          "Siemens 3RT2023-1AP00 Contactor 25A",
+          "ABB S203-C16 MCB 16A 3P",
+          "ABB AF09-30-10 Contactor 9A",
+          "ABB EL3 1 Shunt Release 230V",
+          "Schneider EasyPact TVS 100A MCCB",
+          "Schneider LC1D09M7 Contactor 9A",
+          "Schneider LRD14 Overload Relay 7-10A",
+          "L&T DN100 100A MCCB",
+          "L&T MN 9 Contactor 9A 415V",
+          "Legrand 04172 MCB C32 2P",
+          "Havells SPN DB 6 Way",
+          "Siemens 3NJ4115-2HB10 Isolator 160A",
+          "ABB OT125FT3 Rotary Isolator 125A",
+          "Phoenix Contact UK 4 Terminal Block",
+          "Weidmuller WDU 4 DIN Rail Terminal",
+          "Copper Busbar 50x6mm per meter",
+          "Siemens 3LD2114-0TK53 Load Switch",
+        ],
+      },
+      {
+        id: "extension",
+        name: "Extension / Communication Cards",
+        icon: "📟",
+        desc: "PROFIBUS, PROFINET, Modbus, CANopen, Ethernet IO Cards",
+        brands: ["Siemens", "Mitsubishi", "Moxa", "Anybus", "Hilscher", "HMS"],
+        items: [
+          "Siemens CP 343-1 Ethernet Module",
+          "Siemens CP 5614 PROFIBUS Card",
+          "Siemens CP 1243-1 PROFINET Module",
+          "Mitsubishi QJ71E71-100 Ethernet",
+          "Mitsubishi QJ71PB92D PROFIBUS",
+          "Moxa NPort 5150A Serial to Ethernet",
+          "Anybus X-gateway PROFIBUS to Modbus",
+          "HMS Anybus Communicator CANopen",
+          "Hilscher netTAP Gateway NT 100",
+          "Siemens MM4 Fieldbus Module PROFIBUS",
+          "ABB FPBA-01 PROFIBUS Adapter",
+          "Danfoss FC302 PROFIBUS Option B",
+          "Delta AS01DNET-A DeviceNet Card",
+          "Beckhoff EK1100 EtherCAT Coupler",
+          "Beckhoff KL3062 Analog Input 0-10V",
+          "Wago 750-352 PROFIBUS DP Coupler",
+          "Phoenix IL ETH BK DI8 DO4 2TX-PAC",
+          "Turck BL20-GW-EN Gateway Modbus",
+          "Moxa ioLogik E1210 Remote I/O",
+          "Siemens ET 200SP IM 155-6 PN ST",
+        ],
+      },
     ],
-    desc: 'Authorized distributor for complete Siemens SIMATIC S7 PLC range. All models available — from compact LOGO! modules to high-performance S7-1500 systems. Original & genuine products with GST invoice.',
-    tags: ['PROFINET', 'TIA Portal', 'SCADA Ready', 'Modbus RTU'],
-  },
-  {
-    id: 2, cat: 'PLC', brand: 'Mitsubishi', badge: 'Full Range',
-    name: 'Mitsubishi MELSEC PLC Series',
-    image: imgPLC,
-    available: ['FX1S', 'FX1N', 'FX2N', 'FX3U', 'FX3G', 'FX5U', 'iQ-F Series', 'iQ-R Series', 'L Series', 'Q Series'],
-    specs: [
-      'FX5U: 32–256 I/O, Built-in Ethernet, SD Card, USB',
-      'iQ-R: High-speed, multi-CPU, safety functions',
-      'FX3U: Up to 256 I/O, 3-axis pulse output',
-      'Q Series: Large-scale, redundant CPU support',
-      'L Series: Mid-range with motion control',
-      'FX1S/FX1N: Compact, cost-effective for small machines',
-    ],
-    desc: 'Complete Mitsubishi MELSEC PLC range available. Ideal for machine automation, conveyor systems, textile, and packaging industries. GX Works programming software support.',
-    tags: ['GX Works', 'CC-Link', 'GOT HMI', 'Motion Control'],
-  },
-  {
-    id: 3, cat: 'PLC', brand: 'Allen Bradley', badge: 'Available',
-    name: 'Allen Bradley / Rockwell PLC',
-    image: imgPLC,
-    available: ['MicroLogix 1000', 'MicroLogix 1100', 'MicroLogix 1400', 'CompactLogix', 'ControlLogix', 'Micro820', 'Micro850'],
-    specs: [
-      'MicroLogix 1400: 32 I/O, Ethernet, RS232/485',
-      'CompactLogix: Scalable, EtherNet/IP, motion',
-      'ControlLogix: Enterprise-level, redundancy support',
-      'Micro820/850: IEC 61131-3, web server built-in',
-      'All models support RSLogix / Studio 5000',
-      'Full I/O expansion modules available',
-    ],
-    desc: 'Allen Bradley PLC systems for food & beverage, automotive, oil & gas industries. Supply of CPUs, I/O modules, communication cards and accessories.',
-    tags: ['EtherNet/IP', 'RSLogix 5000', 'DeviceNet', 'ControlNet'],
-  },
-  {
-    id: 4, cat: 'PLC', brand: 'Omron', badge: 'Available',
-    name: 'Omron SYSMAC PLC Series',
-    image: imgPLC,
-    available: ['CP1E', 'CP1L', 'CP1H', 'CJ2M', 'CJ2H', 'NJ Series', 'NX Series', 'CS1 Series'],
-    specs: [
-      'CP1E: Economy type, 10–60 I/O, RS232C',
-      'CP1H: High-speed, 4-axis pulse, USB',
-      'CJ2M: Modular, EtherNet/IP, 2560 I/O',
-      'NJ/NX: Machine automation, EtherCAT motion',
-      'CS1: Large-scale process, redundant CPU',
-      'Sysmac Studio programming environment',
-    ],
-    desc: 'Omron PLC series for precision control in electronics manufacturing, robotics, and packaging lines.',
-    tags: ['EtherCAT', 'Sysmac Studio', 'EtherNet/IP', 'DeviceNet'],
-  },
-
-  // ── AC DRIVES ────────────────────────────────────────────
-  {
-    id: 5, cat: 'AC Drives', brand: 'ABB', badge: 'All KW Available',
-    name: 'ABB AC Variable Frequency Drives',
-    image: imgDCDrives,
-    available: ['ACS310', 'ACS355', 'ACS510', 'ACS550', 'ACS800', 'ACS880', 'ACH580'],
-    specs: [
-      'Range: 0.37 kW to 5600 kW',
-      '380–480V / 525–690V 3-Phase',
-      'Built-in EMC filter available',
-      'HVAC optimized (ACH series)',
-      'Fieldbus: Modbus, PROFIBUS, EtherNet/IP',
-      'IP21 / IP54 / IP55 enclosures',
-    ],
-    desc: 'Complete ABB drive range for pumps, fans, compressors, conveyors, hoists and process applications. Energy optimization and motor protection features.',
-    tags: ['Modbus RTU', 'PROFIBUS', 'Energy Saving', 'IP54'],
-  },
-  {
-    id: 6, cat: 'AC Drives', brand: 'Siemens', badge: 'Full Range',
-    name: 'Siemens SINAMICS AC Drives',
-    image: imgDCDrives,
-    available: ['G110', 'G120', 'G120C', 'G130', 'G150', 'V20', 'V90'],
-    specs: [
-      'G120: Modular, power 0.37–250 kW',
-      'G120C: Compact, integrated safety (STO)',
-      'V20: Basic, 0.12–30 kW, simple setup',
-      'G150: Cabinet drive up to 2700 kW',
-      'PROFINET / PROFIBUS communication',
-      'Safe Torque Off (STO) standard',
-    ],
-    desc: 'Siemens SINAMICS drive family for all industrial applications. From basic V20 to high-performance G150 cabinet drives.',
-    tags: ['PROFINET', 'TIA Portal', 'STO Safety', 'Vector Control'],
-  },
-  {
-    id: 7, cat: 'AC Drives', brand: 'Schneider', badge: 'Available',
-    name: 'Schneider Altivar AC Drives',
-    image: imgDCDrives,
-    available: ['ATV12', 'ATV320', 'ATV340', 'ATV610', 'ATV630', 'ATV650', 'ATV930'],
-    specs: [
-      'ATV320: 0.18–15 kW, machine drives',
-      'ATV610/630: HVAC & pump optimized',
-      'ATV930: Process drives, 0.75–800 kW',
-      'EcoStruxure compatible',
-      'CANopen, Modbus, EtherNet/IP',
-      'Safe Torque Off (STO) certified',
-    ],
-    desc: 'Schneider Altivar drives for machine builders, HVAC, water treatment and process industries.',
-    tags: ['EcoStruxure', 'Modbus', 'CANopen', 'IP55'],
-  },
-  {
-    id: 8, cat: 'AC Drives', brand: 'Delta', badge: 'Value Range',
-    name: 'Delta VFD AC Drive Series',
-    image: imgDCDrives,
-    available: ['VFD-M', 'VFD-B', 'VFD-E', 'VFD-EL', 'VFD-C2000', 'VFD-CP2000', 'MS300'],
-    specs: [
-      'Range: 0.2 kW to 315 kW',
-      'V/f and Sensorless Vector Control',
-      'Built-in PID controller',
-      'RS485 Modbus RTU standard',
-      'PG card option for closed-loop',
-      'EMI filter & braking resistor options',
-    ],
-    desc: 'Delta VFD series — cost-effective general purpose drives for pumps, fans, compressors, textile and packaging machinery.',
-    tags: ['Modbus RTU', 'PID Control', 'Vector Control', 'Compact'],
-  },
-
-  // ── DC DRIVES ────────────────────────────────────────────
-  {
-    id: 9, cat: 'DC Drives', brand: 'Siemens', badge: 'Premium',
-    name: 'Siemens SINAMICS DCM DC Drives',
-    image: imgDCDrives,
-    available: ['6RA7018', '6RA7025', '6RA7031', '6RA7075', '6RA7085', '6RA8013', '6RA8085'],
-    specs: [
-      'Current range: 15 A to 3000 A',
-      '400V / 480V 3-Phase AC input',
-      'Armature + Field controller',
-      'PROFIBUS DP / PROFINET interface',
-      'Regenerative 4-quadrant operation',
-      'Common DC bus configuration',
-    ],
-    desc: 'Siemens SINAMICS DCM for winders, extruders, paper mills, hoists, rolling mills and test bench applications.',
-    tags: ['PROFIBUS', 'Regenerative', '4-Quadrant', 'Field Control'],
-  },
-  {
-    id: 10, cat: 'DC Drives', brand: 'ABB', badge: 'Industrial',
-    name: 'ABB DCS880 DC Drive',
-    image: imgDCDrives,
-    available: ['DCS880-S01-0050', 'DCS880-S01-0100', 'DCS880-S01-0200', 'DCS880-S01-0500', 'DCS880-S01-1000'],
-    specs: [
-      '25 A to 5200 A output',
-      '230–525V AC input',
-      'Armature & field control',
-      'DriveAP programming tool',
-      'Universal I/O, fieldbus options',
-      'Safe Torque Off (STO) included',
-    ],
-    desc: 'ABB DCS880 next-gen DC drives with universal hardware platform. For all DC motor retrofits and new installations.',
-    tags: ['DriveAP', 'STO Safety', 'EtherNet/IP', 'Universal I/O'],
-  },
-
-  // ── SENSORS ──────────────────────────────────────────────
-  {
-    id: 11, cat: 'Sensors', brand: 'Multi-Brand', badge: 'All Types Available',
-    name: 'Proximity Sensors — Inductive & Capacitive',
-    image: imgProximity,
-    available: ['M8', 'M12', 'M18', 'M30', 'Flat Type', 'Ring Type', 'Rectangular'],
-    specs: [
-      'Sensing distance: 2mm to 40mm',
-      'NPN / PNP / 2-wire output',
-      'Normally Open / Normally Closed',
-      'Operating voltage: 10–30V DC',
-      'IP67 / IP68 waterproof rating',
-      'LED indicator, short-circuit protection',
-    ],
-    desc: 'Inductive proximity sensors for metal detection, capacitive sensors for non-metallic objects. Brands: Omron, Autonics, Pepperl+Fuchs, Sick, Balluff available.',
-    tags: ['IP67', 'NPN/PNP', 'M12/M18/M30', 'Autonics', 'Omron'],
-  },
-  {
-    id: 12, cat: 'Sensors', brand: 'Multi-Brand', badge: 'Full Range',
-    name: 'Photoelectric Sensors',
-    image: imgProximity,
-    available: ['Through-Beam', 'Retroreflective', 'Diffuse Reflective', 'Background Suppression', 'Laser Type', 'Fiber Optic'],
-    specs: [
-      'Sensing range: 10mm to 50m',
-      'Through-beam: Longest range, highest reliability',
-      'Retroreflective: 0.1m–10m with reflector',
-      'Diffuse: 10mm–3m, no separate receiver',
-      'PNP/NPN/Relay output options',
-      'IP65/IP67 protection, -25°C to +70°C',
-    ],
-    desc: 'Photoelectric sensors for object detection, counting, positioning on conveyor lines. Brands: Sick, Omron, Autonics, Keyence, Banner available.',
-    tags: ['Sick', 'Keyence', 'Omron', 'Laser', 'Long Range'],
-  },
-  {
-    id: 13, cat: 'Sensors', brand: 'Multi-Brand', badge: 'Available',
-    name: 'Limit Switches — All Types',
-    image: imgLimitSwitch,
-    available: ['Plunger Type', 'Roller Lever', 'Adjustable Roller', 'Wire Pull', 'Whisker Type', 'Safety Limit Switch'],
-    specs: [
-      'Contact: 1NO+1NC standard',
-      'Operating force: 0.5N to 50N',
-      'Voltage: 250V AC / 24V DC',
-      'Current: up to 10A',
-      'IP65 / IP67 enclosure rating',
-      'Brands: Eaton, Schneider, Omron, Honeywell',
-    ],
-    desc: 'Heavy-duty limit switches for machine position detection, end-of-travel sensing, door interlocks and safety applications in all industries.',
-    tags: ['Eaton', 'Schneider', 'IP67', '1NO+1NC', 'Safety'],
-  },
-  {
-    id: 14, cat: 'Sensors', brand: 'Multi-Brand', badge: 'Process',
-    name: 'Pressure & Temperature Transmitters',
-    image: imgProximity,
-    available: ['0-1 Bar', '0-10 Bar', '0-100 Bar', '0-400 Bar', 'PT100 RTD', 'PT1000', 'Thermocouple K/J/T'],
-    specs: [
-      '4-20mA / 0-10V / HART output',
-      'Accuracy: ±0.1% to ±0.5% FS',
-      'SS316L wetted parts',
-      'IP67/IP68 housing',
-      'Temperature range: -50°C to +200°C',
-      'G1/4" to G1" process connections',
-    ],
-    desc: 'Pressure transmitters and temperature sensors for process industries, HVAC, water treatment, compressors and hydraulic systems.',
-    tags: ['4-20mA', 'HART', 'IP67', 'SS316', 'Honeywell'],
   },
 
-  // ── PNEUMATICS ───────────────────────────────────────────
-  {
-    id: 15, cat: 'Pneumatics', brand: 'SMC / Janatics / Festo', badge: 'Wide Range',
-    name: 'Pneumatic Cylinders',
-    image: imgProximity,
-    available: ['Standard Double Acting', 'Single Acting', 'Compact Cylinder', 'Slide Cylinder', 'Rotary Actuator', 'Guided Cylinder', 'Rodless Cylinder'],
-    specs: [
-      'Bore sizes: 12mm to 320mm',
-      'Stroke: 5mm to 1000mm (custom available)',
-      'Operating pressure: 0.1–1.0 MPa',
-      'Temperature range: -10°C to +80°C',
-      'Magnetic piston for reed switch sensing',
-      'Cushion adjustment both ends',
+  mechanical: {
+    label: "Mechanical",
+    icon: "⚙️",
+    color: "#0f766e",
+    bg: "linear-gradient(135deg, #0f766e 0%, #14b8a6 100%)",
+    desc: "Complete mechanical components for industrial machinery and automation",
+    subcategories: [
+      {
+        id: "pneumatics",
+        name: "Pneumatics / Cylinders",
+        icon: "💨",
+        desc: "Pneumatic Cylinders, Valves, FRL Units, Fittings, Air Preparation",
+        brands: ["SMC", "Festo", "Parker", "Norgren", "Camozzi", "Airtec"],
+        items: [
+          "SMC CDU20-20D Compact Cylinder Ø20",
+          "SMC CQ2B40-50DM Compact Cylinder Ø40",
+          "SMC CDJ2B16-50Z Round Body Cylinder",
+          "SMC MGPM20-50Z Guided Cylinder",
+          "Festo DSNU-20-60-PPV-A Cylinder",
+          "Festo ADVU-32-80-APA Double Acting",
+          "Festo DFM-20-80-PA-GF Guided Cylinder",
+          "SMC VQ1101N-5 Solenoid Valve 5/2 Way",
+          "SMC SY3120-5LOU-C6-F1 Solenoid Valve",
+          "Festo VUVG-L10-M52-MT-M7-1P3 Valve",
+          "SMC AF40-04B-A Filter Regulator",
+          "SMC AC40-04G-A FRL Combination Unit",
+          "Norgren B07-200-A1KG Filter Regulator",
+          "SMC ZH05DS-06-06-06 Vacuum Ejector",
+          "SMC MXQ12-30AS Slide Table",
+          "Parker P1F-S020MS0300 Cylinder Ø20",
+          "Camozzi 31M2A020A0100 Cylinder",
+          "SMC VHK2-04F-04F Speed Controller",
+          "SMC KFH04 Fittings Set 4mm",
+          "Festo GRLA-M5-QS-4-D Flow Control",
+        ],
+      },
+      {
+        id: "hydraulics",
+        name: "Hydraulics",
+        icon: "🛢️",
+        desc: "Hydraulic Cylinders, Pumps, Valves, Manifolds, Seals & Fittings",
+        brands: ["Bosch Rexroth", "Parker", "Eaton", "Vickers", "Yuken", "Hydraforce"],
+        items: [
+          "Bosch Rexroth CDT3 Hydraulic Cylinder Ø63",
+          "Bosch Rexroth CDL1 Cylinder Ø80-200mm",
+          "Parker TIE-ROD Cylinder 50Ø x 200mm",
+          "Eaton Vickers V10 Vane Pump 2.3 GPM",
+          "Bosch Rexroth A10VO45 Piston Pump",
+          "Yuken PV2R1-8-F1 Vane Pump",
+          "Parker PVP41 Piston Pump",
+          "Bosch Rexroth 4WE6 Directional Valve",
+          "Vickers DG4V-3S-2N Solenoid Valve",
+          "Eaton DG4S4-012N-B Solenoid Valve",
+          "Hydraforce SV10-20 Cartridge Valve",
+          "Bosch Rexroth RVP10 Pressure Relief",
+          "Parker RVDA Relief Valve 350 Bar",
+          "Bosch Rexroth MSE-6 Hydraulic Motor",
+          "Parker TB0310 Manifold Block",
+          "NBR Hydraulic Cylinder Seal Kit 63mm",
+          "Parker Hannifin 30-piece Fitting Kit",
+          "Hydac BF3HC/HC-330 Return Filter",
+          "Parker 932 Series 10L Accumulator",
+          "Pressure Gauge 0-250 Bar Glycerin",
+        ],
+      },
+      {
+        id: "motors",
+        name: "Motors & Gearboxes",
+        icon: "🔩",
+        desc: "3-Phase Induction Motors, Servo Motors, Gear Reducers, Worm Gearboxes",
+        brands: ["ABB", "Siemens", "SEW", "Lenze", "Bonfiglioli", "Flender"],
+        items: [
+          "ABB M2BAX 4kW 4P IE3 Motor",
+          "ABB M3BP 7.5kW 4P B3 Flange",
+          "Siemens 1LE1001-1AA42 0.75kW",
+          "Siemens 1LA7 5.5kW IE2 3-Phase",
+          "SEW-Eurodrive R17 DRS71M4 0.55kW",
+          "SEW RF37 Gearmotor 1.5kW i=25",
+          "Lenze GST04-2MVAK 0.37kW Gearmotor",
+          "Bonfiglioli MVF 044 3kW Worm Gear",
+          "Flender 2SL3 Helical Bevel Gearbox",
+          "Siemens SIMOGEAR Bevel Gear i=10",
+          "Nord SK 1SI40 Gearbox i=20",
+          "Motovario NMRV 040 50:1 Worm",
+          "ABB IRB 120 Servo Axis Motor",
+          "Siemens 1FK7 Servo Motor 1.5Nm",
+          "Panasonic MHMD042G1U Servo Motor",
+          "Yaskawa SGM7A-04A7A61 Servo Motor",
+          "Bosch Rexroth MSK030 Servo Motor",
+          "ABB BSDR Brake Motor 2.2kW",
+          "Siemens FLENDER Standard Coupling",
+          "Dodge Tigear-2 Worm Reducer 10:1",
+        ],
+      },
+      {
+        id: "encoders",
+        name: "Encoders",
+        icon: "🎯",
+        desc: "Incremental & Absolute Rotary Encoders, Linear Encoders, Resolver",
+        brands: ["Heidenhain", "Sick", "Baumer", "Pepperl+Fuchs", "Lika", "Kübler"],
+        items: [
+          "Heidenhain ERN 1381 Incremental Encoder",
+          "Heidenhain ECN 1313 Absolute Encoder",
+          "Sick DFS60B-S4EK01024 1024 PPR",
+          "Sick ATM90-A2A13X13 Absolute Encoder",
+          "Baumer BMMH 58S3600-G3Y-W10 2500PPR",
+          "Baumer EAM581 Absolute 18-bit SSI",
+          "Pepperl+Fuchs ENI58IL-1024-3-T10",
+          "Kübler 8.5858 Absolute SSI Encoder",
+          "Lika C58-H-5000BZ0.5L2G3 Industrial",
+          "Renishaw ATOM DX Linear Encoder",
+          "TR Electronic CE65M Absolute 4096",
+          "Autonics E40S8-5000-3-T-24 Encoder",
+          "BEI Sensors HS35 1000 PPR",
+          "Eltra ER58A1000Z5/28P12X6MR Encoder",
+          "Broadcom HEDS-5540 Optical Encoder",
+          "Dynapar H20 Hollow Shaft 5000PPR",
+          "Wachendorff WDGI58B-1024-ABN-24",
+          "IFM RM3005 Magnetic Encoder",
+          "Posital Fraba OCD-S101G-0016-S060",
+          "SICK BTF08-S1AK01500 Stainless Encoder",
+        ],
+      },
+      {
+        id: "cables",
+        name: "Cables & Connectors",
+        icon: "🔗",
+        desc: "Servo Cables, Encoder Cables, Power Cables, M12 Connectors, Drag Chain",
+        brands: ["Lapp", "Igus", "Helukabel", "Nexans", "Phoenix", "Harting"],
+        items: [
+          "Lapp ÖLFLEX 191 CY 4G1.5mm² Shielded",
+          "Lapp UNITRONIC 100 4x0.25mm² Data",
+          "Igus CF130.02.04 Chainflex Servo Cable",
+          "Igus CF10-07-04 Motor Power 4G1.5mm²",
+          "Helukabel JZ-600 5G1.5mm² Flexible",
+          "Nexans NeXans VFD Drive Cable 4G4mm²",
+          "Phoenix SAC-3P-M12MS/3.0-PVC M12 Cable",
+          "Harting M12-X Circular Connector",
+          "Lapp Epic H-B 6-Pin Connector",
+          "Turck PKG 4M-2/S90 M12 4-Pin 2M",
+          "Igus E2.38.075.0 Energy Chain 38mm",
+          "Igus E4.56.250.0 Energy Chain 56mm",
+          "Igus E4.80.400.0 Heavy Duty E-Chain",
+          "Igus E14 Micro Energy Chain",
+          "Lapp ÖLFLEX FD 855 P Drag Chain Cable",
+          "Igus CF9 Encoder Feedback Cable 5P",
+          "Lapp UNITRONIC FD CY 2x2x0.5 Data",
+          "RJ45 Industrial Cat6 Shielded Cable 5M",
+          "M12 D-Coded Ethernet Patch Cable 3M",
+          "HAN 6E Harting Connector Set Male",
+        ],
+      },
+      {
+        id: "carrier_chain",
+        name: "Cable Carrier & Chain",
+        icon: "⛓️",
+        desc: "Cable Drag Chains, Energy Chains, Carrier Systems, Separators",
+        brands: ["Igus", "Brevetti", "Kabelschlepp", "Murrplastik", "Hennlich"],
+        items: [
+          "Igus E2 Micro Series 15x15mm",
+          "Igus E2.38 Series 38x25mm",
+          "Igus E4 Heavy Duty 56x50mm",
+          "Igus TRL 35 Triflex 3D Energy Chain",
+          "Igus E6 Cleanroom Energy Chain",
+          "Igus RX Roller Energy Chain 50mm",
+          "Brevetti Stendalto Series 50 Chain",
+          "Kabelschlepp T Series 60x35mm",
+          "Murrplastik Systemkette SK5 Series",
+          "Hennlich Energy Chain 0430 Series",
+          "Igus Separator RS12 for E4 Series",
+          "Igus Crossbar Clip TKA for E2",
+          "Igus End Connector EK.10.38",
+          "Igus Mounting Bracket HGWM 38",
+          "Igus Pivoting Bracket STBU 56",
+          "Igus Noise Dampening Pad for E4",
+          "Igus Cable Clamp HZB 38-B",
+          "Murrplastik Cable Tie Inserts",
+          "Igus Sliding Layer SK 135.03",
+          "Kabelschlepp Shelf Divider Set",
+        ],
+      },
+      {
+        id: "belts_pulleys",
+        name: "Belts, Pulleys & Bearings",
+        icon: "🔘",
+        desc: "Timing Belts, V-Belts, Pulleys, Idler, Ball Bearings, Pillow Blocks",
+        brands: ["Gates", "Optibelt", "SKF", "FAG", "NSK", "Fenner"],
+        items: [
+          "Gates PowerGrip GT3 HTD 5M Belt",
+          "Gates 8MGT Timing Belt 1440mm",
+          "Optibelt ALPHA Power AT10 Belt",
+          "Fenner HTD 3M-150 Rubber Timing Belt",
+          "Gates V-Belt A Section A50",
+          "Gates V-Belt B Section B65",
+          "SKF HTD 5M Pulleys Ø20-Ø150mm",
+          "Gates Poly Chain Sprocket 8MGT-21S",
+          "Optibelt Pilot Bore Pulley SPA 100",
+          "SKF 6205-2RS1 Deep Groove Ball Bearing",
+          "SKF 6208-2Z/C3 Ball Bearing 40mm",
+          "FAG 1205-K-TVH-C3 Self Aligning",
+          "FAG 32210-A Taper Roller Bearing",
+          "NSK 6006-DDU Ball Bearing 30mm",
+          "SKF UCP206 Pillow Block Bearing",
+          "SKF SYK 30 WF Plummer Block",
+          "FAG UCFL207 Flange Bearing 35mm",
+          "SKF PHDA 50 Adapter Sleeve",
+          "Gates Flex-Wedge Drive Belt 3V",
+          "Rexnord TableTop Chain 821K325T10",
+        ],
+      },
+      {
+        id: "couplings",
+        name: "Couplings & Shafts",
+        icon: "🔧",
+        desc: "Rigid, Flexible, Jaw, Oldham, Bellows Couplings, Keyway Shafts",
+        brands: ["Rexnord", "R+W", "Huco", "KTR", "Miki Pulley", "Mayr"],
+        items: [
+          "KTR ROTEX GR 14 Jaw Coupling D=14mm",
+          "KTR BOWEX M-18 Curved Tooth Coupling",
+          "Huco Oldham Coupling 16mm Bore",
+          "R+W BK1/500/AA Bellows Coupling",
+          "Mayr ROBA-DS Disc Coupling Ø65mm",
+          "Miki Pulley SFC-040-MZR Flex Coupling",
+          "Rexnord Thomas 52 Disc Coupling",
+          "KTR MONOLASTIC Rubber Coupling",
+          "Huco Rigid Coupling 16mm Ø30mm",
+          "Lenze Elastomer Coupling GFL-A 30",
+          "SKF Oldham Coupling 25mm Bore",
+          "Lovejoy Type L070 Jaw Coupling",
+          "Rexnord Zero-Max Steel Laminar",
+          "Igus igumid Backlash-Free Coupling",
+          "R+W EKM/50 Miniature Bellows 8mm",
+          "Mayr ROBA-brake-checker Module",
+          "Keyway Shaft 25mm H6 CK45 1M",
+          "Linear Shaft 20mm h6 Hardened 1M",
+          "Splined Shaft DIN 5481 22x28mm",
+          "Thomson Precision Shaft 25mm Case",
+        ],
+      },
     ],
-    desc: 'Complete range of pneumatic cylinders for pick & place, clamping, pressing, lifting and actuating applications. SMC, Janatics, Festo, Aventics available.',
-    tags: ['SMC', 'Janatics', 'Festo', 'ISO Standard', 'Compact'],
-  },
-  {
-    id: 16, cat: 'Pneumatics', brand: 'SMC / Janatics', badge: 'Full Range',
-    name: 'Solenoid Valves & Directional Control',
-    image: imgProximity,
-    available: ['3/2 Way', '5/2 Way', '5/3 Way', 'Manifold Blocks', 'Pilot Operated', 'Direct Acting', 'Inline Valve'],
-    specs: [
-      'Port sizes: 1/8" to 1"',
-      'Voltage: 24V DC / 110V / 230V AC',
-      'Pressure: 0–1 MPa operating',
-      'Cv flow: 0.3 to 10+',
-      'IP65 coil protection',
-      'Response time: 5–30ms',
-    ],
-    desc: 'Directional control solenoid valves for pneumatic circuit control. Single/double solenoid, spring return, detented options available.',
-    tags: ['SMC', '5/2 Way', '24V DC', 'Manifold', 'IP65'],
-  },
-  {
-    id: 17, cat: 'Pneumatics', brand: 'SMC / Janatics', badge: 'Available',
-    name: 'FRL Units — Filter Regulator Lubricator',
-    image: imgProximity,
-    available: ['Filter (AF)', 'Regulator (AR)', 'Lubricator (AL)', 'F+R Combo', 'F+R+L Combo', 'Mist Separator', 'Micro Mist'],
-    specs: [
-      'Port sizes: 1/8" to 1"',
-      'Filtration: 5μm to 40μm',
-      'Pressure range: 0.05–1.0 MPa',
-      'Bowl: Polycarbonate / Metal guard',
-      'Auto drain option available',
-      'Modular / non-modular design',
-    ],
-    desc: 'Air preparation equipment for compressed air conditioning. Clean, dry and lubricated air for longer pneumatic component life.',
-    tags: ['SMC', 'Janatics', 'Air Prep', 'Auto Drain', 'Modular'],
-  },
-  {
-    id: 18, cat: 'Pneumatics', brand: 'SMC / Janatics', badge: 'Available',
-    name: 'One-Touch Fittings & Pneumatic Tubing',
-    image: imgProximity,
-    available: ['Straight Union', 'Elbow', 'Tee', 'Reducer', 'Bulkhead', 'Male Connector', 'Push-in Fittings'],
-    specs: [
-      'Tube OD: 4mm to 16mm',
-      'Material: Nylon, PU, Polyurethane tubing',
-      'Pressure: up to 1.5 MPa',
-      'Push-to-connect, easy installation',
-      'Tube colors: Blue, Black, Clear, Red',
-      'Temperature: -5°C to +60°C',
-    ],
-    desc: 'Complete range of one-touch push-in fittings and pneumatic tubing for quick, leak-free pneumatic circuit assembly.',
-    tags: ['Push-In', 'PU Tubing', 'SMC', '4-16mm', 'Quick Connect'],
   },
 
-  // ── HYDRAULICS ───────────────────────────────────────────
-  {
-    id: 19, cat: 'Hydraulics', brand: 'Multi-Brand', badge: 'Available',
-    name: 'Hydraulic Pumps',
-    image: imgProximity,
-    available: ['Gear Pump', 'Vane Pump', 'Piston Pump (Axial/Radial)', 'Bent Axis Piston', 'Tandem Pump', 'Hydraulic Power Pack'],
-    specs: [
-      'Pressure range: up to 350 bar',
-      'Flow: 1 cc/rev to 500 cc/rev',
-      'Speed: 1000–3000 RPM',
-      'Fluid: Mineral oil / HLP 46',
-      'Port: SAE / BSP / NPT',
-      'Brands: Bosch Rexroth, Parker, Yuken',
+  panels: {
+    label: "Control Panels",
+    icon: "🗄️",
+    color: "#7c3aed",
+    bg: "linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)",
+    desc: "Custom manufactured industrial control panels for every application",
+    subcategories: [
+      {
+        id: "mcc",
+        name: "MCC Panel",
+        icon: "⚡",
+        desc: "Motor Control Center Panels – Fixed, Withdrawable, Intelligent MCC",
+        brands: ["Siemens", "ABB", "Schneider", "L&T", "GE", "Eaton"],
+        items: [
+          "Fixed Type MCC Panel Up to 630A",
+          "Draw-out Type MCC 3-Phase 415V",
+          "Intelligent MCC with Profibus DP",
+          "Star-Delta Starter MCC Up to 110kW",
+          "DOL Starter MCC Up to 30kW",
+          "Soft Starter MCC Panel 45-200kW",
+          "Auto-transformer Starter MCC",
+          "Reversing Starter MCC with Interlock",
+          "Slip Ring Motor Starter Panel",
+          "PMCC (Power & Motor Control Center)",
+          "Emergency MCC Backup Panel",
+          "MCC with VFD for Multiple Motors",
+          "Feeder Pillar Box IP55 Up to 200A",
+          "Control Desk with MCC Integration",
+          "Busduct Coupled MCC Panel",
+          "Floor Standing MCC IP54 RAL 7035",
+          "Compact MCC 600x600x2000mm",
+          "Weather Proof MCC IP65 Outdoor",
+          "Mining Grade MCC ATEX Certified",
+          "Retrofit & Upgrades for Old MCC",
+        ],
+      },
+      {
+        id: "plc_panel",
+        name: "PLC Panel",
+        icon: "🖥️",
+        desc: "Custom PLC Automation Panels with Siemens, Mitsubishi, Delta – Any Size",
+        brands: ["Siemens", "Mitsubishi", "Allen Bradley", "Delta", "Schneider", "Beckhoff"],
+        items: [
+          "Siemens S7-1200 PLC Panel Wall Mount",
+          "Siemens S7-1500 PLC Panel Freestanding",
+          "Mitsubishi iQ-R PLC Control Panel",
+          "Allen Bradley CompactLogix PLC Panel",
+          "Delta DVP PLC Automation Panel",
+          "Beckhoff IPC Automation Panel",
+          "Multi-Axis Servo Control Panel",
+          "PLC Panel with HMI Integration",
+          "PLC Panel with SCADA Gateway",
+          "Redundant PLC Panel Hot Standby",
+          "PLC Panel with UPS Backup System",
+          "Remote I/O Distributed Control Panel",
+          "PLC Panel IP66 Stainless Food Grade",
+          "PLC Panel with Camera Vision System",
+          "Conveyor PLC Automation Panel",
+          "Welding Line PLC Panel",
+          "Press Machine PLC Control Panel",
+          "Injection Moulding PLC Panel",
+          "Packaging Machine PLC Panel",
+          "PLC Panel with IoT Edge Gateway",
+        ],
+      },
+      {
+        id: "vfd_panel",
+        name: "VFD Panel",
+        icon: "🔄",
+        desc: "Variable Frequency Drive Panels – Single & Multi-Drive – 0.75kW to 800kW",
+        brands: ["ABB", "Siemens", "Danfoss", "Mitsubishi", "Delta", "Schneider"],
+        items: [
+          "Single VFD Panel 0.75kW-22kW",
+          "Multi-Drive VFD Panel 4 Drives",
+          "ABB ACS880 Multi-Drive Panel 400kW",
+          "Siemens SINAMICS G120 Panel",
+          "VFD Panel with PLC Control",
+          "Pump VFD Panel with Flow Control",
+          "Fan VFD Panel Energy Saving",
+          "Compressor VFD Control Panel",
+          "VFD Panel with Bypass Circuit",
+          "VFD Panel with Harmonic Filter",
+          "Common DC Bus VFD Panel",
+          "VFD Panel with Brake Resistor",
+          "Crane Hoist VFD Control Panel",
+          "HVAC VFD Control Panel BMS",
+          "Water Treatment VFD Panel",
+          "VFD Retrofit Panel for Old Motor",
+          "Multi-Pump VFD Panel Duplex",
+          "VFD Panel with Remote Monitoring",
+          "VFD Panel IP55 Outdoor Mount",
+          "Marine Grade VFD Panel Corrosion",
+        ],
+      },
+      {
+        id: "apfc",
+        name: "APFC Panel",
+        icon: "📊",
+        desc: "Automatic Power Factor Correction Panels – Up to 1000 KVAR",
+        brands: ["Schneider", "ABB", "Siemens", "Circutor", "Frako", "Ducati"],
+        items: [
+          "APFC Panel 50 KVAR 415V",
+          "APFC Panel 100 KVAR 3-Phase",
+          "APFC Panel 200 KVAR Detuned",
+          "APFC Panel 300 KVAR Capacitor Bank",
+          "APFC Panel 500 KVAR Heavy Duty",
+          "Detuned APFC Panel 7% Reactor",
+          "APFC Panel with Thyristor Switching",
+          "Harmonic Filtered APFC Panel",
+          "APFC Panel with Siemens BR6000",
+          "APFC Panel Schneider Varlogic NR12",
+          "APFC Panel with ABB RVT Controller",
+          "APFC Panel Indoor IP42 LT Side",
+          "APFC Panel Outdoor Weatherproof",
+          "Capacitor Bank 25 KVAR 440V PP",
+          "Detuning Reactor 7% 50KVAR",
+          "APFC with Energy Meter RS485",
+          "APFC Panel Hybrid Active Filter",
+          "Thyristor Bank Fast Switching",
+          "APFC Panel with Transient Suppressor",
+          "APFC Panel Retrofit Existing Board",
+        ],
+      },
+      {
+        id: "amf",
+        name: "AMF / DG Sync Panel",
+        icon: "🔋",
+        desc: "Auto Mains Failure Panels, DG Synchronizing Panels, Load Transfer",
+        brands: ["Deepsea", "ComAp", "Woodward", "Lovato", "ABB", "Siemens"],
+        items: [
+          "AMF Panel Deepsea DSE7320 Single DG",
+          "AMF Panel ComAp InteliLite 4 MRS",
+          "AMF Panel Woodward 8440-2020",
+          "AMF with Auto Load Transfer Switch",
+          "DG Sync Panel Paralleling 2 DG Sets",
+          "DG Sync Panel ComAp InteliGen NT",
+          "DG Sync Panel 3 DG Paralleling",
+          "AMF with MPCB Changeover 100A",
+          "AMF Panel for Hospital Critical Load",
+          "AMF with Battery Charger 24VDC",
+          "Sync Panel Load Sharing Controller",
+          "AMF with Remote Monitoring GPRS",
+          "DG Sync with Mains Paralleling",
+          "AMF for Pump House Diesel Generator",
+          "Soft Load Transfer AMF 630A",
+          "AMF with AVR Control Integration",
+          "DG Panel with Annunciator",
+          "AMF Panel for UPS Backup System",
+          "DG Sync Panel 415V 1MVA",
+          "AMF Panel Automatic Battery Testing",
+        ],
+      },
+      {
+        id: "distribution",
+        name: "Distribution Board / DB",
+        icon: "🔌",
+        desc: "LT Distribution Panels, SDB, MLDB, Junction Boxes – All Sizes",
+        brands: ["Siemens", "ABB", "Schneider", "L&T", "Havells", "Legrand"],
+        items: [
+          "Main LT Panel MLDB 1000A 415V",
+          "Sub Distribution Board SDB 400A",
+          "Final Distribution Board FDB 100A",
+          "Incomer ACB Panel 1600A",
+          "Bus Coupler Panel Tie Switch",
+          "Power Distribution Panel 250A",
+          "Lighting Distribution Board 63A",
+          "HVAC Distribution Panel 200A",
+          "Power Factor Meter Panel Board",
+          "MCB Distribution Box 12 Way",
+          "MCB Distribution Box 24 Way TPN",
+          "Isolator Panel HRC Fuse 400A",
+          "Junction Box IP65 300x400mm",
+          "GRP Enclosure IP66 600x600mm",
+          "Floor Standing DB Powder Coated",
+          "Flush Mounted DB Panel Recessed",
+          "Outdoor Metering Panel IP54",
+          "Apartment Distribution Board 24Way",
+          "Factory Distribution Board SFU",
+          "Bus Bar Trunking TAP Off Box 160A",
+        ],
+      },
     ],
-    desc: 'Hydraulic pumps for press machines, injection moulding, construction equipment, material handling and industrial power packs.',
-    tags: ['Bosch Rexroth', 'Parker', 'Yuken', '350 Bar', 'Gear Pump'],
-  },
-  {
-    id: 20, cat: 'Hydraulics', brand: 'Multi-Brand', badge: 'Full Range',
-    name: 'Hydraulic Valves & Control',
-    image: imgProximity,
-    available: ['Directional Control Valve', 'Relief Valve', 'Check Valve', 'Flow Control Valve', 'Pressure Reducing Valve', 'Proportional Valve', 'Solenoid Operated DCVs'],
-    specs: [
-      'Pressure rating: up to 350 bar',
-      'Flow: 5 LPM to 500 LPM',
-      'Cetop 3 / Cetop 5 / Cetop 7 mounting',
-      'Voltage: 12V DC / 24V DC / 110V / 230V',
-      'Seal material: NBR / Viton',
-      'ISO 4401 standard porting',
-    ],
-    desc: 'Complete hydraulic valve solutions for direction, pressure and flow control in hydraulic circuits. Bosch Rexroth, Parker, Yuken, Vickers available.',
-    tags: ['Cetop 3/5', 'Bosch Rexroth', 'Parker', 'ISO 4401'],
-  },
-  {
-    id: 21, cat: 'Hydraulics', brand: 'Multi-Brand', badge: 'Available',
-    name: 'Hydraulic Cylinders & Seals',
-    image: imgProximity,
-    available: ['Tie-Rod Cylinder', 'Welded Cylinder', 'Telescopic Cylinder', 'Mill Type', 'Hydraulic Seal Kits', 'Rod Wiper Seals'],
-    specs: [
-      'Bore: 32mm to 500mm',
-      'Stroke: 50mm to 3000mm',
-      'Pressure: up to 250 bar',
-      'Seal: NBR / Polyurethane / Viton',
-      'Mounting: Foot, Flange, Clevis, Trunnion',
-      'Custom cylinders on order',
-    ],
-    desc: 'Hydraulic cylinders for press machines, cutting machines, injection moulding, crane and construction applications. Seal kits for all makes.',
-    tags: ['Custom Build', 'NBR Seals', '250 Bar', 'All Mounts'],
   },
 
-  // ── MECHANICAL ───────────────────────────────────────────
-  {
-    id: 22, cat: 'Mechanical', brand: 'Multi-Brand', badge: 'Available',
-    name: 'Gearboxes & Speed Reducers',
-    image: imgProximity,
-    available: ['Helical Gearbox', 'Worm Gearbox', 'Bevel Helical', 'Planetary Gearbox', 'Inline Gearbox', 'Right Angle', 'Coaxial Helical'],
-    specs: [
-      'Reduction ratio: 1:5 to 1:3000',
-      'Output torque: up to 50,000 Nm',
-      'Input speed: up to 3000 RPM',
-      'Mounting: Foot / Flange / Shaft',
-      'Gear material: Case hardened alloy steel',
-      'Brands: Flender, SEW, Nord, Bonfiglioli',
+  hmi: {
+    label: "HMI & SCADA",
+    icon: "📱",
+    color: "#b45309",
+    bg: "linear-gradient(135deg, #b45309 0%, #f59e0b 100%)",
+    desc: "Human Machine Interfaces and SCADA systems for industrial visualization",
+    subcategories: [
+      {
+        id: "siemens_hmi",
+        name: "Siemens HMI Panels",
+        icon: "🖥️",
+        desc: "Siemens KTP, TP, MP Series HMI Panels – 4″ to 22″",
+        brands: ["Siemens"],
+        items: [
+          "Siemens KTP400 Basic 4.3\" 6AV2123",
+          "Siemens KTP700 Basic 7\" 6AV2123",
+          "Siemens KTP900 Basic 9\" 6AV2123",
+          "Siemens KTP1200 Basic 12\" 6AV2123",
+          "Siemens TP700 Comfort 7\" 6AV2124",
+          "Siemens TP900 Comfort 9\" 6AV2124",
+          "Siemens TP1200 Comfort 12\" 6AV2124",
+          "Siemens TP1500 Comfort 15\" 6AV2124",
+          "Siemens MP377 Multi Panel 15\" Touch",
+          "Siemens IPC277E Panel PC 15\" Win10",
+          "Siemens SIMATIC IPC477E 19\"",
+          "Siemens Mobile Panel 2nd Gen 7\"",
+          "Siemens IFP1900 Industrial Monitor",
+          "Siemens IFP2200 Monitor 22\" Full HD",
+          "Siemens TP1500 Comfort PRO IP65",
+          "Siemens KP300 Key Panel Monochrome",
+          "Siemens OP73 Operator Panel Text",
+          "Siemens HMI TP270 6\" (Legacy)",
+          "Siemens KTP1900 Basic Widescreen",
+          "Siemens WinCC RT Advanced License",
+        ],
+      },
+      {
+        id: "weintek_delta",
+        name: "Weintek & Delta HMI",
+        icon: "📺",
+        desc: "Weintek cMT, MT Series and Delta DOP-B, DOP-W Series Touch Panels",
+        brands: ["Weintek", "Delta"],
+        items: [
+          "Weintek MT8071iE 7\" 800x480",
+          "Weintek MT8102iE 10.1\" Multi-Touch",
+          "Weintek MT8151XE 15\" TFT Color",
+          "Weintek cMT3072 7\" Cloud HMI",
+          "Weintek cMT3092 9.7\" Ethernet",
+          "Weintek cMT3151 15\" High Res",
+          "Weintek cMT-SVR Server Only",
+          "Weintek MT6070iH 7\" Economical",
+          "Delta DOP-B07E415 7\" WVGA",
+          "Delta DOP-B10E615 10\" Touch Panel",
+          "Delta DOP-B15E515W 15\" Widescreen",
+          "Delta DOP-107WV 7\" 800x480 Slim",
+          "Delta DOP-110IS 10.1\" Smart HMI",
+          "Delta DOP-W157B 15\" Wide HMI",
+          "Delta DOP-B Series Modbus RTU",
+          "Weintek MT8121XE 12.1\" Bright",
+          "Weintek MT6103iP 10.1\" Budget",
+          "Weintek EasyAccess 2.0 Remote",
+          "Weintek MT6070iH 7\" USB Port",
+          "Delta DOP-B10E515 PROFIBUS",
+        ],
+      },
+      {
+        id: "scada",
+        name: "SCADA Software",
+        icon: "📡",
+        desc: "Industrial SCADA, MES, DCS, Historian Software Licenses",
+        brands: ["Siemens WinCC", "Ignition", "Wonderware", "InTouch", "iFix", "Citect"],
+        items: [
+          "Siemens WinCC V7.5 Basic License",
+          "Siemens WinCC OA V3.18 Client",
+          "Siemens TIA Portal WinCC Advanced",
+          "Inductive Automation Ignition 8.1",
+          "Ignition Edge IIoT Gateway",
+          "AVEVA InTouch 2020 R2 License",
+          "AVEVA System Platform License",
+          "GE iFix SCADA Server License",
+          "Citect SCADA 2018 R2 License",
+          "Rockwell FactoryTalk View SE",
+          "Kepware KEPServerEX OPC Server",
+          "Matrikon OPC Explorer Client",
+          "OSIsoft PI Historian License",
+          "Canary Historian Software",
+          "COPA-DATA zenon 10 SCADA",
+          "mySCADA myDESIGNER License",
+          "ProSoft Technology OPC Server",
+          "Cimplicity 11.5 GE SCADA",
+          "Wonderware Historian Server 2020",
+          "IIoT Edge to Cloud Gateway License",
+        ],
+      },
     ],
-    desc: 'Industrial gearboxes for conveyors, mixers, agitators, elevators, fans and all power transmission applications.',
-    tags: ['Flender', 'SEW', 'Nord', 'Bonfiglioli', 'Helical'],
   },
-  {
-    id: 23, cat: 'Mechanical', brand: 'Multi-Brand', badge: 'Available',
-    name: 'Bearings — All Types',
-    image: imgProximity,
-    available: ['Deep Groove Ball Bearing', 'Angular Contact', 'Cylindrical Roller', 'Tapered Roller', 'Spherical Roller', 'Thrust Bearing', 'Pillow Block'],
-    specs: [
-      'Bore: 5mm to 1000mm+',
-      'Brands: SKF, FAG, NSK, NTN, Timken',
-      'ABEC 1 to ABEC 7 precision grades',
-      'Lubrication: Grease / Oil',
-      'Temperature: -40°C to +200°C',
-      'Sealed / Open / Shielded variants',
-    ],
-    desc: 'All types of bearings for motors, gearboxes, pumps, fans and rotating machinery. SKF, FAG, NSK, NTN, Timken — all makes available.',
-    tags: ['SKF', 'FAG', 'NSK', 'NTN', 'Timken'],
-  },
-  {
-    id: 24, cat: 'Mechanical', brand: 'Multi-Brand', badge: 'Available',
-    name: 'Couplings & Power Transmission',
-    image: imgProximity,
-    available: ['Jaw / Spider Coupling', 'Rigid Coupling', 'Disc Coupling', 'Chain Coupling', 'Gear Coupling', 'Fluid Coupling', 'V-Belt & Timing Belt'],
-    specs: [
-      'Shaft diameter: 5mm to 200mm',
-      'Spider material: NBR / Polyurethane / Hytrel',
-      'Max torque: up to 50,000 Nm',
-      'Misalignment: angular ±1°, parallel 0.1mm',
-      'V-belts: A, B, C, D section, SPZ/SPA/SPB/SPC',
-      'Timing belts: T5, T10, AT5, AT10, HTD 3M/5M/8M',
-    ],
-    desc: 'Flexible and rigid couplings, V-belts, timing belts and pulleys for motor-to-gearbox and motor-to-pump connections.',
-    tags: ['Jaw Coupling', 'V-Belt', 'Timing Belt', 'Flexible'],
-  },
-  {
-    id: 25, cat: 'Mechanical', brand: 'Multi-Brand', badge: 'Available',
-    name: 'Fasteners & Industrial Hardware',
-    image: imgProximity,
-    available: ['Hex Bolts & Nuts', 'Allen (Socket Head) Bolts', 'Studs & Washers', 'Anchor Bolts', 'Spring Pins', 'Circlips', 'Retaining Rings'],
-    specs: [
-      'Grade: 4.6, 8.8, 10.9, 12.9 (ISO standards)',
-      'Material: MS, SS304, SS316, Brass',
-      'Size: M3 to M64',
-      'Finish: Plain, Zinc, Hot-dip galvanised',
-      'DIN / ISO / IS standard',
-      'Bulk supply available',
-    ],
-    desc: 'All types of industrial fasteners — structural bolts, machine bolts, foundation bolts, SS hardware for panel building and machine assembly.',
-    tags: ['Grade 8.8', 'SS304', 'DIN Standard', 'M3–M64'],
-  },
+};
 
-  // ── CONTROL PANELS ───────────────────────────────────────
-  {
-    id: 26, cat: 'Panels', brand: 'Custom Build', badge: 'Made to Order',
-    name: 'MCC — Motor Control Centre Panel',
-    image: imgDCDrives,
-    available: ['Incoming ACB Panel', 'MCC with DOL Starters', 'MCC with VFD', 'Power Factor Panel', 'Distribution Board', 'LT Panel 415V'],
-    specs: [
-      'Voltage: 415V, 3-Phase, 4-Wire',
-      'Current: 100A to 6300A',
-      'Enclosure: IP42 / IP54 MS powder coated',
-      'Busbar: Copper / Aluminium, silver plated joints',
-      'Protection: MCB, MCCB, ACB, relay',
-      'Testing: As per IS 8623 / IEC 61439',
-    ],
-    desc: 'Custom-designed and manufactured MCC panels for factories, pumping stations, commercial buildings. Complete wiring, testing and commissioning.',
-    tags: ['IS 8623', 'IP54', 'Custom', 'Copper Busbar', 'Tested'],
-  },
-  {
-    id: 27, cat: 'Panels', brand: 'Custom Build', badge: 'Made to Order',
-    name: 'PLC Automation Control Panel',
-    image: imgPLC,
-    available: ['PLC Panel with Siemens S7', 'PLC Panel with Mitsubishi FX', 'HMI + PLC Panel', 'VFD Panel', 'Remote I/O Panel', 'Control Desk'],
-    specs: [
-      'DIN rail mounted components',
-      '24V SMPS power supply',
-      'Siemens / Phoenix terminal blocks',
-      'Weidmuller / Phoenix I/O modules',
-      'Cable tray, ferruling, labelling',
-      'FAT (Factory Acceptance Testing) included',
-    ],
-    desc: 'Turnkey PLC control panels designed, built, programmed and tested as per customer P&ID and wiring requirements.',
-    tags: ['Turnkey', 'FAT Tested', 'DIN Rail', 'SMPS', 'Custom'],
-  },
+// ─── STYLES ───────────────────────────────────────────────────
+const globalStyle = `
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; }
+  button { font-family: 'DM Sans', sans-serif; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #f1f5f9; }
+  ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+`;
 
-  // ── HMI & SCADA ──────────────────────────────────────────
-  {
-    id: 28, cat: 'HMI', brand: 'Siemens', badge: 'All Models',
-    name: 'Siemens SIMATIC HMI Panels',
-    image: imgPLC,
-    available: ['KTP400 Basic 4"', 'KTP700 Basic 7"', 'KTP900 Basic 9"', 'KTP1200 Basic 12"', 'TP700 Comfort 7"', 'TP1200 Comfort 12"', 'MP377 15"'],
-    specs: [
-      '4" to 22" TFT color displays',
-      'Touch + Function key models',
-      'PROFINET / MPI / DP interface',
-      'USB Host / Device port',
-      'Configured with TIA Portal WinCC',
-      'IP65 front panel protection',
-    ],
-    desc: 'Complete Siemens KTP Basic and Comfort HMI panel range for machine visualization, operator control and process monitoring.',
-    tags: ['TIA Portal', 'WinCC', 'PROFINET', 'IP65', 'Touch'],
-  },
-  {
-    id: 29, cat: 'HMI', brand: 'Weintek / Delta', badge: 'Value Range',
-    name: 'Weintek & Delta HMI Panels',
-    image: imgPLC,
-    available: ['Weintek MT8071iE 7"', 'Weintek MT8102iE 10"', 'Delta DOP-107BV 7"', 'Delta DOP-110IS 10"', 'Kinco MT4414 7"'],
-    specs: [
-      '7" to 15" WVGA / HD display',
-      'Supports 300+ PLC protocols',
-      'Ethernet / COM1 / COM2 / USB',
-      'EasyBuilder Pro software (free)',
-      'Multi-touch, gesture support',
-      'Recipe, data logging, alarm',
-    ],
-    desc: 'Cost-effective HMI alternatives for small-to-mid machines. Compatible with Siemens, Mitsubishi, Omron, Allen Bradley PLCs out of the box.',
-    tags: ['Weintek', 'Delta', '300+ Protocols', 'Free Software'],
-  },
-]
+// ─── CATEGORY SCREEN ──────────────────────────────────────────
+function CategoryScreen({ onSelect }) {
+  const [hovered, setHovered] = useState(null);
 
-// ─────────────────────────────────────────────────────────────
-//  BADGE COLOR MAP
-// ─────────────────────────────────────────────────────────────
-const badgeStyle = (badge) => {
-  const map = {
-    'All Series Available': { bg: '#dcfce7', color: '#166534' },
-    'Full Range':           { bg: '#dbeafe', color: '#1e40af' },
-    'All Models':           { bg: '#dbeafe', color: '#1e40af' },
-    'Available':            { bg: '#f0f9ff', color: '#0369a1' },
-    'All KW Available':     { bg: '#dcfce7', color: '#166534' },
-    'Wide Range':           { bg: '#fef9c3', color: '#854d0e' },
-    'Value Range':          { bg: '#fce7f3', color: '#9d174d' },
-    'Premium':              { bg: '#ede9fe', color: '#5b21b6' },
-    'Industrial':           { bg: '#f1f5f9', color: '#334155' },
-    'All Types Available':  { bg: '#dcfce7', color: '#166534' },
-    'Process':              { bg: '#fff7ed', color: '#9a3412' },
-    'Made to Order':        { bg: '#fef3c7', color: '#92400e' },
-    'Full Range':           { bg: '#dbeafe', color: '#1e40af' },
-  }
-  return map[badge] || { bg: '#f1f5f9', color: '#334155' }
-}
-
-// ─────────────────────────────────────────────────────────────
-//  PRODUCT DETAIL MODAL
-// ─────────────────────────────────────────────────────────────
-function ProductModal({ product, onClose, onEnquire }) {
-  if (!product) return null
-  const bc = badgeStyle(product.badge)
+  const cards = [
+    {
+      key: "electrical",
+      icon: "⚡",
+      label: "Electrical",
+      color: "#0047AB",
+      bg: "linear-gradient(135deg, #0047AB 0%, #1e6fd4 100%)",
+      desc: "PLC • VFD • SMPS • Sensors • Safety Devices • Switchboard • Extension Cards",
+      sub: `${productsData.electrical.subcategories.length} subcategories`,
+    },
+    {
+      key: "mechanical",
+      icon: "⚙️",
+      label: "Mechanical",
+      color: "#0f766e",
+      bg: "linear-gradient(135deg, #0f766e 0%, #14b8a6 100%)",
+      desc: "Pneumatics • Hydraulics • Motors • Encoders • Cables • Chain • Belts & Bearings",
+      sub: `${productsData.mechanical.subcategories.length} subcategories`,
+    },
+    {
+      key: "panels",
+      icon: "🗄️",
+      label: "Control Panels",
+      color: "#7c3aed",
+      bg: "linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)",
+      desc: "MCC • PLC Panel • VFD Panel • APFC • AMF/DG Sync • Distribution Board",
+      sub: `${productsData.panels.subcategories.length} subcategories`,
+    },
+    {
+      key: "hmi",
+      icon: "📱",
+      label: "HMI & SCADA",
+      color: "#b45309",
+      bg: "linear-gradient(135deg, #b45309 0%, #f59e0b 100%)",
+      desc: "Siemens KTP/TP • Weintek cMT • Delta DOP • SCADA WinCC • Ignition • InTouch",
+      sub: `${productsData.hmi.subcategories.length} subcategories`,
+    },
+  ];
 
   return (
-    <div
-      style={{
-        position: 'fixed', inset: 0,
-        background: 'rgba(0,0,0,0.65)',
-        zIndex: 2000, display: 'flex',
-        alignItems: 'center', justifyContent: 'center',
-        padding: '16px', backdropFilter: 'blur(4px)',
-      }}
-      onClick={onClose}
-    >
-      <div
-        style={{
-          background: '#fff', borderRadius: '16px',
-          maxWidth: '700px', width: '100%',
-          maxHeight: '92vh', overflowY: 'auto',
-          boxShadow: '0 24px 60px rgba(0,0,0,0.3)',
-        }}
-        onClick={e => e.stopPropagation()}
-      >
-        {/* Modal header */}
-        <div style={{
-          background: 'linear-gradient(135deg, #0047AB, #1a6fd4)',
-          padding: '24px 28px', borderRadius: '16px 16px 0 0',
-          position: 'relative',
-        }}>
-          <button onClick={onClose} style={{
-            position: 'absolute', top: '14px', right: '14px',
-            background: 'rgba(255,255,255,0.2)', border: 'none',
-            color: '#fff', width: '32px', height: '32px', borderRadius: '50%',
-            cursor: 'pointer', fontSize: '18px', lineHeight: '32px',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-          }}>×</button>
-
-          <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
-            <img
-              src={product.image} alt={product.name}
-              style={{ width: '80px', height: '80px', objectFit: 'contain', borderRadius: '10px', background: '#fff', padding: '6px', flexShrink: 0 }}
-            />
-            <div>
-              <span style={{ background: bc.bg, color: bc.color, padding: '3px 10px', borderRadius: '4px', fontSize: '11px', fontWeight: '700', display: 'inline-block', marginBottom: '8px' }}>
-                {product.badge}
-              </span>
-              <div style={{ color: 'rgba(255,255,255,0.75)', fontSize: '12px', marginBottom: '4px', letterSpacing: '0.08em' }}>{product.brand}</div>
-              <h3 style={{ color: '#fff', fontSize: '20px', fontWeight: '800', margin: 0, lineHeight: 1.2 }}>{product.name}</h3>
-            </div>
+    <section style={{ background: "#f0f4fb", padding: "72px 0", minHeight: "100vh" }}>
+      <style>{globalStyle}</style>
+      <div style={{ maxWidth: 1260, margin: "0 auto", padding: "0 24px" }}>
+        {/* Header */}
+        <div style={{ textAlign: "center", marginBottom: 52 }}>
+          <span style={{
+            display: "inline-block", background: "#dbeafe", color: "#1e40af",
+            padding: "5px 18px", borderRadius: 4, fontSize: 11,
+            fontWeight: 800, letterSpacing: "0.15em", marginBottom: 16,
+            fontFamily: "'Syne', sans-serif"
+          }}>
+            OUR PRODUCT RANGE
+          </span>
+          <h2 style={{
+            fontFamily: "'Syne', sans-serif", fontSize: "clamp(28px,4vw,46px)",
+            fontWeight: 800, color: "#0b1222", letterSpacing: "-0.03em", marginBottom: 14
+          }}>
+            Industrial Automation &amp; Engineering
+          </h2>
+          <p style={{ color: "#64748b", fontSize: 15, maxWidth: 540, margin: "0 auto", lineHeight: 1.8 }}>
+            Authorized distributors for Siemens, ABB, Mitsubishi, Schneider, SMC, Delta &amp; more.
+            Click a category to explore products.
+          </p>
+          <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", marginTop: 22 }}>
+            {["✅ Genuine Products", "🧾 GST Invoice", "🚚 Pan-India Delivery", "📞 Technical Support"].map(b => (
+              <span key={b} style={{
+                background: "#fff", border: "1.5px solid #e2e8f0", color: "#334155",
+                padding: "6px 16px", borderRadius: 8, fontSize: 12, fontWeight: 700,
+                boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
+              }}>{b}</span>
+            ))}
           </div>
         </div>
 
-        {/* Modal body */}
-        <div style={{ padding: '24px 28px' }}>
+        {/* 4 Cards */}
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(270px, 1fr))",
+          gap: 24, marginBottom: 56
+        }}>
+          {cards.map(card => (
+            <div
+              key={card.key}
+              onClick={() => onSelect(card.key)}
+              onMouseEnter={() => setHovered(card.key)}
+              onMouseLeave={() => setHovered(null)}
+              style={{
+                background: card.bg,
+                borderRadius: 20, padding: "36px 28px",
+                cursor: "pointer", position: "relative", overflow: "hidden",
+                transition: "all 0.3s cubic-bezier(0.34,1.56,0.64,1)",
+                transform: hovered === card.key ? "translateY(-10px) scale(1.02)" : "translateY(0) scale(1)",
+                boxShadow: hovered === card.key
+                  ? `0 28px 64px ${card.color}45`
+                  : "0 4px 20px rgba(0,0,0,0.1)",
+              }}
+            >
+              <div style={{
+                position: "absolute", right: -20, top: -20, fontSize: 130,
+                opacity: 0.07, userSelect: "none",
+                transform: hovered === card.key ? "rotate(15deg) scale(1.1)" : "rotate(0)",
+                transition: "transform 0.4s",
+              }}>{card.icon}</div>
 
-          {/* Description */}
-          <p style={{ color: '#475569', lineHeight: '1.75', marginBottom: '24px', fontSize: '14px' }}>{product.desc}</p>
-
-          {/* Available Models */}
-          <div style={{ marginBottom: '24px' }}>
-            <div style={{ fontWeight: '700', color: '#0f172a', marginBottom: '12px', fontSize: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ background: '#dcfce7', color: '#166534', padding: '2px 10px', borderRadius: '20px', fontSize: '12px' }}>✓ Available Models / Types</span>
+              <div style={{ fontSize: 52, marginBottom: 18, lineHeight: 1 }}>{card.icon}</div>
+              <h3 style={{
+                color: "#fff", fontSize: 26, fontWeight: 800, marginBottom: 10,
+                fontFamily: "'Syne', sans-serif", letterSpacing: "-0.02em"
+              }}>{card.label}</h3>
+              <p style={{ color: "rgba(255,255,255,0.82)", fontSize: 13, lineHeight: 1.75, marginBottom: 22 }}>
+                {card.desc}
+              </p>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span style={{
+                  background: "rgba(255,255,255,0.18)", color: "#fff",
+                  padding: "5px 14px", borderRadius: 20, fontSize: 12, fontWeight: 700
+                }}>{card.sub}</span>
+                <span style={{
+                  color: "#fff", fontSize: 22,
+                  transform: hovered === card.key ? "translateX(6px)" : "translateX(0)",
+                  transition: "transform 0.2s", display: "inline-block"
+                }}>→</span>
+              </div>
             </div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-              {product.available.map((m, i) => (
-                <span key={i} style={{
-                  background: '#eff6ff', color: '#1e40af',
-                  padding: '6px 14px', borderRadius: '6px',
-                  fontSize: '13px', fontWeight: '600',
-                  border: '1px solid #bfdbfe',
-                }}>
-                  {m}
-                </span>
-              ))}
-            </div>
-          </div>
+          ))}
+        </div>
 
-          {/* Specifications */}
-          <div style={{ marginBottom: '24px' }}>
-            <div style={{ fontWeight: '700', color: '#0f172a', marginBottom: '12px', fontSize: '14px' }}>📋 Technical Specifications</div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-              {product.specs.map((spec, i) => (
-                <div key={i} style={{
-                  display: 'flex', alignItems: 'flex-start', gap: '8px',
-                  background: '#f8fafc', padding: '10px 14px',
-                  borderRadius: '8px', fontSize: '13px', color: '#334155',
-                  lineHeight: '1.5',
-                }}>
-                  <span style={{ color: '#0047AB', fontWeight: '800', flexShrink: 0, marginTop: '1px' }}>✓</span>
-                  <span>{spec}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Tags */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '24px' }}>
-            {product.tags.map((t, i) => (
-              <span key={i} style={{
-                background: '#f1f5f9', color: '#64748b',
-                padding: '4px 10px', borderRadius: '4px',
-                fontSize: '11px', fontWeight: '600',
-              }}>
-                #{t}
-              </span>
-            ))}
-          </div>
-
-          {/* Action buttons */}
-          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+        {/* CTA */}
+        <div style={{
+          background: "linear-gradient(135deg, #0b1222, #1e3a5f)",
+          borderRadius: 18, padding: "42px 36px", textAlign: "center"
+        }}>
+          <h3 style={{
+            color: "#fff", fontSize: 22, fontWeight: 800, marginBottom: 10,
+            fontFamily: "'Syne', sans-serif"
+          }}>Can't find what you're looking for?</h3>
+          <p style={{ color: "rgba(255,255,255,0.7)", fontSize: 14, marginBottom: 26 }}>
+            Share model number, datasheet or image — we'll source it for you.
+          </p>
+          <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
             <button
-              onClick={() => onEnquire(product)}
+              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
               style={{
-                flex: 1, minWidth: '140px',
-                background: 'linear-gradient(135deg, #0047AB, #1a6fd4)',
-                color: '#fff', border: 'none', padding: '14px',
-                borderRadius: '8px', fontWeight: '700', fontSize: '14px',
-                cursor: 'pointer',
-              }}
-            >
-              📩 Send Enquiry
-            </button>
-            <a href="tel:+917696939529" style={{
-              flex: 1, minWidth: '140px',
-              background: '#f0fdf4', color: '#166534',
-              border: '2px solid #bbf7d0', padding: '14px',
-              textDecoration: 'none', borderRadius: '8px',
-              fontWeight: '700', fontSize: '14px',
-              textAlign: 'center', display: 'flex',
-              alignItems: 'center', justifyContent: 'center', gap: '8px',
-            }}>
-              📞 Call Now
-            </a>
-            <a
-              href="https://wa.me/917696939529"
-              target="_blank" rel="noreferrer"
+                background: "#0047AB", color: "#fff", border: "none",
+                padding: "13px 28px", borderRadius: 9, fontWeight: 700, fontSize: 14, cursor: "pointer"
+              }}>📩 Send Requirement</button>
+            <a href="https://wa.me/917696939529" target="_blank" rel="noreferrer"
               style={{
-                flex: 1, minWidth: '140px',
-                background: '#25D366', color: '#fff',
-                padding: '14px', borderRadius: '8px',
-                textDecoration: 'none', fontWeight: '700',
-                fontSize: '14px', textAlign: 'center',
-                display: 'flex', alignItems: 'center',
-                justifyContent: 'center', gap: '8px',
-              }}
-            >
-              💬 WhatsApp
-            </a>
+                background: "#25D366", color: "#fff", padding: "13px 28px",
+                borderRadius: 9, textDecoration: "none", fontWeight: 700, fontSize: 14
+              }}>💬 WhatsApp Us</a>
           </div>
         </div>
       </div>
-    </div>
-  )
+    </section>
+  );
 }
 
-// ─────────────────────────────────────────────────────────────
-//  MAIN PRODUCTS COMPONENT
-// ─────────────────────────────────────────────────────────────
-function Products() {
-  const [activeCat, setActiveCat] = useState('All')
-  const [selectedProduct, setSelectedProduct] = useState(null)
-  const [search, setSearch] = useState('')
-
-  const filtered = products.filter(p => {
-    const matchCat = activeCat === 'All' || p.cat === activeCat
-    const matchSearch =
-      p.name.toLowerCase().includes(search.toLowerCase()) ||
-      p.brand.toLowerCase().includes(search.toLowerCase()) ||
-      p.available.some(a => a.toLowerCase().includes(search.toLowerCase()))
-    return matchCat && matchSearch
-  })
-
-  const handleEnquire = (product) => {
-    setSelectedProduct(null)
-    setTimeout(() => {
-      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
-    }, 300)
-  }
+// ─── SUBCATEGORY SCREEN ───────────────────────────────────────
+function SubcategoryScreen({ categoryKey, onBack, onSelectSub }) {
+  const cat = productsData[categoryKey];
+  const [hovered, setHovered] = useState(null);
 
   return (
-    <>
-      <style>{`
-        .products-cat-scroll {
-          display: flex;
-          gap: 8px;
-          overflow-x: auto;
-          padding-bottom: 4px;
-          scrollbar-width: none;
-          -webkit-overflow-scrolling: touch;
-        }
-        .products-cat-scroll::-webkit-scrollbar { display: none; }
-        .cat-btn {
-          white-space: nowrap;
-          padding: 9px 16px;
-          border-radius: 8px;
-          border: 2px solid #e2e8f0;
-          background: #fff;
-          color: #334155;
-          font-weight: 600;
-          font-size: 13px;
-          cursor: pointer;
-          transition: all 0.2s;
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          font-family: inherit;
-        }
-        .cat-btn.active {
-          border-color: #0047AB;
-          background: #0047AB;
-          color: #fff;
-          box-shadow: 0 4px 14px rgba(0,71,171,0.3);
-        }
-        .cat-btn:hover:not(.active) {
-          border-color: #0047AB;
-          color: #0047AB;
-          background: #eff6ff;
-        }
+    <section style={{ background: "#f0f4fb", padding: "60px 0", minHeight: "100vh" }}>
+      <style>{globalStyle}</style>
+      <div style={{ maxWidth: 1260, margin: "0 auto", padding: "0 24px" }}>
 
-        .products-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-          gap: 24px;
-        }
-
-        .product-card {
-          background: #fff;
-          border-radius: 14px;
-          border: 1.5px solid #e2e8f0;
-          overflow: hidden;
-          display: flex;
-          flex-direction: column;
-          transition: all 0.25s ease;
-          cursor: pointer;
-        }
-        .product-card:hover {
-          transform: translateY(-6px);
-          box-shadow: 0 16px 40px rgba(0,71,171,0.12);
-          border-color: #0047AB;
-        }
-        .product-card-img {
-          height: 180px;
-          overflow: hidden;
-          background: #f0f6ff;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          position: relative;
-        }
-        .product-card-img img {
-          width: 100%;
-          height: 100%;
-          object-fit: contain;
-          padding: 12px;
-          transition: transform 0.4s ease;
-        }
-        .product-card:hover .product-card-img img {
-          transform: scale(1.05);
-        }
-
-        .search-input {
-          width: 100%;
-          padding: 12px 16px 12px 44px;
-          border: 2px solid #e2e8f0;
-          border-radius: 10px;
-          font-size: 14px;
-          outline: none;
-          background: #fff;
-          font-family: inherit;
-          transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        .search-input:focus {
-          border-color: #0047AB;
-          box-shadow: 0 0 0 3px rgba(0,71,171,0.1);
-        }
-
-        @media (max-width: 768px) {
-          .products-grid {
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 16px;
-          }
-          .modal-specs-grid {
-            grid-template-columns: 1fr !important;
-          }
-        }
-        @media (max-width: 480px) {
-          .products-grid {
-            grid-template-columns: 1fr;
-          }
-        }
-      `}</style>
-
-      <section id="products" style={{ background: '#f8fafc', padding: '80px 0' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 20px' }}>
-
-          {/* ── Section Header ── */}
-          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-            <div style={{
-              display: 'inline-block', background: '#dbeafe', color: '#1e40af',
-              padding: '6px 18px', borderRadius: '4px',
-              fontSize: '11px', fontWeight: '700', letterSpacing: '0.12em',
-              marginBottom: '16px',
-            }}>
-              OUR PRODUCT RANGE
-            </div>
-            <h2 style={{
-              fontSize: 'clamp(26px, 4vw, 42px)',
-              fontWeight: '800', color: '#0f172a',
-              marginBottom: '14px', letterSpacing: '-0.02em', lineHeight: 1.15,
-            }}>
-              Industrial Automation & Engineering Products
-            </h2>
-            <p style={{ color: '#64748b', fontSize: '16px', maxWidth: '600px', margin: '0 auto', lineHeight: 1.75 }}>
-              We are authorized distributors for leading brands — Siemens, Mitsubishi, ABB, Schneider, Delta, Omron, SMC and more.
-              Send us an enquiry for availability and best pricing.
-            </p>
-
-            {/* Trust badges */}
-            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '20px' }}>
-              {[
-                '✅ Genuine Products Only',
-                '🧾 GST Invoice',
-                '🚚 Pan-India Delivery',
-                '📞 Technical Support',
-              ].map(b => (
-                <span key={b} style={{
-                  background: '#fff', border: '1.5px solid #e2e8f0',
-                  color: '#334155', padding: '6px 14px',
-                  borderRadius: '6px', fontSize: '12px', fontWeight: '600',
-                  boxShadow: '0 2px 6px rgba(0,0,0,0.05)',
-                }}>
-                  {b}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* ── Search ── */}
-          <div style={{ position: 'relative', marginBottom: '24px', maxWidth: '500px' }}>
-            <span style={{
-              position: 'absolute', left: '14px', top: '50%',
-              transform: 'translateY(-50%)', color: '#94a3b8', fontSize: '16px',
-              pointerEvents: 'none',
-            }}>🔍</span>
-            <input
-              type="text"
-              className="search-input"
-              placeholder="Search products, brands, models... (e.g. S7-1200, ACS510)"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-            />
-          </div>
-
-          {/* ── Category Tabs (horizontal scroll on mobile) ── */}
-          <div className="products-cat-scroll" style={{ marginBottom: '36px' }}>
-            {categories.map(cat => (
-              <button
-                key={cat.id}
-                className={`cat-btn${activeCat === cat.id ? ' active' : ''}`}
-                onClick={() => setActiveCat(cat.id)}
-              >
-                <span>{cat.icon}</span>
-                <span>{cat.label}</span>
-              </button>
-            ))}
-          </div>
-
-          {/* Result count */}
-          <div style={{ marginBottom: '20px', color: '#64748b', fontSize: '13px', fontWeight: '500' }}>
-            Showing <strong style={{ color: '#0047AB' }}>{filtered.length}</strong> product categories
-            {search && <> for "<strong>{search}</strong>"</>}
-          </div>
-
-          {/* ── Product Grid ── */}
-          <div className="products-grid">
-            {filtered.map(product => {
-              const bc = badgeStyle(product.badge)
-              return (
-                <div
-                  key={product.id}
-                  className="product-card"
-                  onClick={() => setSelectedProduct(product)}
-                >
-                  {/* Image */}
-                  <div className="product-card-img">
-                    <span style={{
-                      position: 'absolute', top: '10px', left: '10px',
-                      background: bc.bg, color: bc.color,
-                      padding: '4px 10px', borderRadius: '4px',
-                      fontSize: '10px', fontWeight: '700',
-                      zIndex: 1,
-                    }}>
-                      {product.badge}
-                    </span>
-                    <img src={product.image} alt={product.name} />
-                  </div>
-
-                  {/* Body */}
-                  <div style={{ padding: '18px 20px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-
-                    {/* Brand */}
-                    <div style={{ marginBottom: '8px' }}>
-                      <span style={{
-                        background: '#f1f5f9', color: '#475569',
-                        padding: '3px 10px', borderRadius: '4px',
-                        fontSize: '11px', fontWeight: '700',
-                      }}>
-                        {product.brand}
-                      </span>
-                    </div>
-
-                    {/* Name */}
-                    <h3 style={{
-                      fontWeight: '800', color: '#0f172a',
-                      fontSize: '15px', marginBottom: '10px',
-                      lineHeight: 1.35,
-                    }}>
-                      {product.name}
-                    </h3>
-
-                    {/* Available models preview */}
-                    <div style={{ marginBottom: '14px', flex: 1 }}>
-                      <div style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '600', marginBottom: '6px', letterSpacing: '0.05em' }}>
-                        AVAILABLE:
-                      </div>
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
-                        {product.available.slice(0, 4).map((m, i) => (
-                          <span key={i} style={{
-                            background: '#eff6ff', color: '#1e40af',
-                            padding: '3px 8px', borderRadius: '4px',
-                            fontSize: '11px', fontWeight: '600',
-                            border: '1px solid #dbeafe',
-                          }}>
-                            {m}
-                          </span>
-                        ))}
-                        {product.available.length > 4 && (
-                          <span style={{
-                            background: '#f8fafc', color: '#64748b',
-                            padding: '3px 8px', borderRadius: '4px',
-                            fontSize: '11px', fontWeight: '600',
-                          }}>
-                            +{product.available.length - 4} more
-                          </span>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Spec preview */}
-                    <div style={{ marginBottom: '16px' }}>
-                      {product.specs.slice(0, 2).map((s, i) => (
-                        <div key={i} style={{
-                          fontSize: '12px', color: '#64748b',
-                          padding: '2px 0', display: 'flex',
-                          alignItems: 'flex-start', gap: '6px', lineHeight: 1.5,
-                        }}>
-                          <span style={{ color: '#0047AB', fontWeight: '800', fontSize: '10px', marginTop: '3px', flexShrink: 0 }}>●</span>
-                          {s}
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Action buttons */}
-                    <div style={{ display: 'flex', gap: '8px' }}>
-                      <button
-                        onClick={e => { e.stopPropagation(); setSelectedProduct(product) }}
-                        style={{
-                          flex: 1, background: '#eff6ff', color: '#0047AB',
-                          border: '2px solid #bfdbfe', padding: '10px',
-                          borderRadius: '8px', fontWeight: '700',
-                          fontSize: '13px', cursor: 'pointer',
-                          transition: 'background 0.2s', fontFamily: 'inherit',
-                        }}
-                        onMouseOver={e => e.currentTarget.style.background = '#dbeafe'}
-                        onMouseOut={e => e.currentTarget.style.background = '#eff6ff'}
-                      >
-                        View Details
-                      </button>
-                      <button
-                        onClick={e => { e.stopPropagation(); handleEnquire(product) }}
-                        style={{
-                          flex: 1,
-                          background: 'linear-gradient(135deg, #0047AB, #1a6fd4)',
-                          color: '#fff', border: 'none', padding: '10px',
-                          borderRadius: '8px', fontWeight: '700',
-                          fontSize: '13px', cursor: 'pointer',
-                          transition: 'opacity 0.2s', fontFamily: 'inherit',
-                        }}
-                        onMouseOver={e => e.currentTarget.style.opacity = '0.9'}
-                        onMouseOut={e => e.currentTarget.style.opacity = '1'}
-                      >
-                        Get Quote
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-
-          {/* No results */}
-          {filtered.length === 0 && (
-            <div style={{ textAlign: 'center', padding: '80px 24px', color: '#94a3b8' }}>
-              <div style={{ fontSize: '52px', marginBottom: '16px' }}>🔍</div>
-              <p style={{ fontSize: '18px', fontWeight: '700', color: '#334155' }}>No products found for "{search}"</p>
-              <p style={{ fontSize: '14px', marginTop: '8px' }}>Try searching: PLC, Siemens, Sensor, ABB, VFD, Hydraulic</p>
-              <button
-                onClick={() => { setSearch(''); setActiveCat('All') }}
-                style={{
-                  marginTop: '20px',
-                  background: '#0047AB', color: '#fff', border: 'none',
-                  padding: '12px 28px', borderRadius: '8px',
-                  fontWeight: '700', fontSize: '14px', cursor: 'pointer',
-                  fontFamily: 'inherit',
-                }}
-              >
-                Clear Search
-              </button>
-            </div>
-          )}
-
-          {/* Bottom CTA */}
-          <div style={{
-            marginTop: '60px',
-            background: 'linear-gradient(135deg, #0047AB, #1565c0)',
-            borderRadius: '16px', padding: '40px 32px',
-            textAlign: 'center', position: 'relative', overflow: 'hidden',
-          }}>
-            <div style={{
-              position: 'absolute', right: '-30px', top: '-30px',
-              fontSize: '160px', opacity: 0.06, userSelect: 'none', color: '#fff',
-            }}>⚙</div>
-            <h3 style={{ color: '#fff', fontSize: '24px', fontWeight: '800', marginBottom: '12px' }}>
-              Can't find what you're looking for?
-            </h3>
-            <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '15px', marginBottom: '24px', maxWidth: '500px', margin: '0 auto 24px' }}>
-              We source any industrial automation component. Share your requirement — model number, datasheet or image — we'll arrange it for you.
-            </p>
-            <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <button
-                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                style={{
-                  background: '#fff', color: '#0047AB',
-                  border: 'none', padding: '13px 28px',
-                  borderRadius: '8px', fontWeight: '800',
-                  fontSize: '14px', cursor: 'pointer',
-                  fontFamily: 'inherit',
-                }}
-              >
-                📩 Send Your Requirement
-              </button>
-              <a
-                href="https://wa.me/917696939529"
-                target="_blank" rel="noreferrer"
-                style={{
-                  background: '#25D366', color: '#fff',
-                  padding: '13px 28px', borderRadius: '8px',
-                  textDecoration: 'none', fontWeight: '800',
-                  fontSize: '14px', display: 'inline-flex',
-                  alignItems: 'center', gap: '8px',
-                }}
-              >
-                💬 WhatsApp Us
-              </a>
-            </div>
-          </div>
-
+        {/* Breadcrumb */}
+        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 30, fontSize: 13, color: "#64748b" }}>
+          <span onClick={onBack} style={{ cursor: "pointer", color: cat.color, fontWeight: 800 }}>Products</span>
+          <span style={{ color: "#94a3b8" }}>›</span>
+          <span style={{ color: "#0b1222", fontWeight: 800 }}>{cat.label}</span>
         </div>
-      </section>
 
-      {/* Product Modal */}
-      <ProductModal
-        product={selectedProduct}
-        onClose={() => setSelectedProduct(null)}
-        onEnquire={handleEnquire}
-      />
-    </>
-  )
+        {/* Hero */}
+        <div style={{
+          background: cat.bg, borderRadius: 18, padding: "30px 36px",
+          marginBottom: 40, display: "flex", alignItems: "center", gap: 20,
+          position: "relative", overflow: "hidden"
+        }}>
+          <div style={{ position: "absolute", right: -10, top: -10, fontSize: 150, opacity: 0.07 }}>{cat.icon}</div>
+          <div style={{ fontSize: 54 }}>{cat.icon}</div>
+          <div>
+            <h2 style={{
+              color: "#fff", fontSize: 30, fontWeight: 800, margin: 0,
+              fontFamily: "'Syne', sans-serif", letterSpacing: "-0.02em"
+            }}>{cat.label} Products</h2>
+            <p style={{ color: "rgba(255,255,255,0.8)", margin: "6px 0 0", fontSize: 14 }}>
+              {cat.desc} — click a subcategory to view products
+            </p>
+          </div>
+        </div>
+
+        {/* Subcategory Grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(290px, 1fr))", gap: 20 }}>
+          {cat.subcategories.map(sub => (
+            <div
+              key={sub.id}
+              onClick={() => onSelectSub(sub.id)}
+              onMouseEnter={() => setHovered(sub.id)}
+              onMouseLeave={() => setHovered(null)}
+              style={{
+                background: "#fff", borderRadius: 18,
+                border: `2px solid ${hovered === sub.id ? cat.color : "#e2e8f0"}`,
+                padding: 24, cursor: "pointer",
+                transition: "all 0.25s ease",
+                transform: hovered === sub.id ? "translateY(-5px)" : "translateY(0)",
+                boxShadow: hovered === sub.id ? `0 14px 36px ${cat.color}1e` : "0 2px 10px rgba(0,0,0,0.04)",
+              }}
+            >
+              <div style={{
+                width: 54, height: 54, background: hovered === sub.id ? cat.bg : "#f1f5f9",
+                borderRadius: 14, display: "flex", alignItems: "center", justifyContent: "center",
+                fontSize: 26, marginBottom: 14, transition: "all 0.25s"
+              }}>{sub.icon}</div>
+
+              <h4 style={{
+                fontSize: 17, fontWeight: 800, color: "#0b1222", marginBottom: 6,
+                fontFamily: "'Syne', sans-serif"
+              }}>{sub.name}</h4>
+              <p style={{ fontSize: 13, color: "#64748b", marginBottom: 14, lineHeight: 1.65 }}>{sub.desc}</p>
+
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 14 }}>
+                {sub.brands.slice(0, 4).map(b => (
+                  <span key={b} style={{
+                    background: "#f8fafc", color: "#475569",
+                    padding: "3px 9px", borderRadius: 5, fontSize: 11, fontWeight: 700,
+                    border: "1px solid #e2e8f0"
+                  }}>{b}</span>
+                ))}
+              </div>
+
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span style={{
+                  background: hovered === sub.id ? cat.color : "#f1f5f9",
+                  color: hovered === sub.id ? "#fff" : "#64748b",
+                  padding: "4px 13px", borderRadius: 20, fontSize: 11, fontWeight: 800,
+                  transition: "all 0.25s"
+                }}>{sub.items.length} products</span>
+                <span style={{
+                  color: cat.color, fontSize: 20,
+                  transform: hovered === sub.id ? "translateX(5px)" : "translateX(0)",
+                  transition: "transform 0.2s", display: "inline-block"
+                }}>→</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
 
-export default Products
+// ─── ITEMS SCREEN ─────────────────────────────────────────────
+function ItemsScreen({ categoryKey, subcategoryId, onBack, onBackToCategory }) {
+  const cat = productsData[categoryKey];
+  const sub = cat.subcategories.find(s => s.id === subcategoryId);
+  const [hovered, setHovered] = useState(null);
+  const [search, setSearch] = useState("");
+
+  const filtered = sub.items.filter(item =>
+    item.toLowerCase().includes(search.toLowerCase())
+  );
+
+  return (
+    <section style={{ background: "#f0f4fb", padding: "60px 0", minHeight: "100vh" }}>
+      <style>{globalStyle}</style>
+      <div style={{ maxWidth: 1260, margin: "0 auto", padding: "0 24px" }}>
+
+        {/* Breadcrumb */}
+        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 30, fontSize: 13, color: "#64748b", flexWrap: "wrap" }}>
+          <span onClick={onBack} style={{ cursor: "pointer", color: cat.color, fontWeight: 800 }}>Products</span>
+          <span style={{ color: "#94a3b8" }}>›</span>
+          <span onClick={onBackToCategory} style={{ cursor: "pointer", color: cat.color, fontWeight: 800 }}>{cat.label}</span>
+          <span style={{ color: "#94a3b8" }}>›</span>
+          <span style={{ color: "#0b1222", fontWeight: 800 }}>{sub.name}</span>
+        </div>
+
+        {/* Hero */}
+        <div style={{
+          background: cat.bg, borderRadius: 18, padding: "28px 32px",
+          marginBottom: 32, display: "flex", alignItems: "center", gap: 18,
+          position: "relative", overflow: "hidden", flexWrap: "wrap"
+        }}>
+          <div style={{ position: "absolute", right: -10, top: -10, fontSize: 130, opacity: 0.07 }}>{sub.icon}</div>
+          <div style={{ fontSize: 46 }}>{sub.icon}</div>
+          <div style={{ flex: 1, minWidth: 200 }}>
+            <h2 style={{
+              color: "#fff", fontSize: 26, fontWeight: 800, margin: 0,
+              fontFamily: "'Syne', sans-serif"
+            }}>{sub.name}</h2>
+            <p style={{ color: "rgba(255,255,255,0.82)", margin: "5px 0 0", fontSize: 13 }}>{sub.desc}</p>
+          </div>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            {sub.brands.map(b => (
+              <span key={b} style={{
+                background: "rgba(255,255,255,0.18)", color: "#fff",
+                padding: "4px 13px", borderRadius: 20, fontSize: 12, fontWeight: 700
+              }}>{b}</span>
+            ))}
+          </div>
+        </div>
+
+        {/* Search */}
+        <div style={{ position: "relative", marginBottom: 28, maxWidth: 500 }}>
+          <span style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", fontSize: 16 }}>🔍</span>
+          <input
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            placeholder={`Search in ${sub.name}...`}
+            style={{
+              width: "100%", padding: "12px 16px 12px 44px",
+              borderRadius: 12, border: "2px solid #e2e8f0",
+              fontSize: 14, outline: "none", background: "#fff",
+              fontFamily: "'DM Sans', sans-serif", color: "#0b1222",
+              transition: "border 0.2s",
+            }}
+            onFocus={e => (e.target.style.borderColor = cat.color)}
+            onBlur={e => (e.target.style.borderColor = "#e2e8f0")}
+          />
+        </div>
+
+        {/* Items Count */}
+        <p style={{ fontSize: 13, color: "#64748b", marginBottom: 20, fontWeight: 600 }}>
+          Showing <b style={{ color: cat.color }}>{filtered.length}</b> products
+        </p>
+
+        {/* Items Grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))", gap: 16, marginBottom: 40 }}>
+          {filtered.map((item, i) => (
+            <div
+              key={i}
+              onMouseEnter={() => setHovered(i)}
+              onMouseLeave={() => setHovered(null)}
+              style={{
+                background: "#fff", borderRadius: 16,
+                border: `2px solid ${hovered === i ? cat.color : "#e2e8f0"}`,
+                padding: "18px 20px", transition: "all 0.2s ease",
+                transform: hovered === i ? "translateY(-4px)" : "translateY(0)",
+                boxShadow: hovered === i ? `0 12px 28px ${cat.color}18` : "0 2px 6px rgba(0,0,0,0.03)",
+                display: "flex", flexDirection: "column", gap: 14
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
+                <div style={{
+                  width: 38, height: 38, flexShrink: 0,
+                  background: hovered === i ? cat.bg : "#f1f5f9",
+                  borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: 17, transition: "all 0.2s"
+                }}>{sub.icon}</div>
+                <p style={{ fontSize: 14, fontWeight: 700, color: "#0b1222", margin: 0, lineHeight: 1.45, fontFamily: "'Syne', sans-serif" }}>
+                  {item}
+                </p>
+              </div>
+
+              <div style={{ display: "flex", gap: 8, marginTop: "auto" }}>
+                <button
+                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                  style={{
+                    flex: 1, background: hovered === i ? cat.bg : "#f8fafc",
+                    color: hovered === i ? "#fff" : cat.color,
+                    border: `1.5px solid ${hovered === i ? "transparent" : cat.color}`,
+                    padding: "9px 0", borderRadius: 9, fontWeight: 700,
+                    fontSize: 12, cursor: "pointer", transition: "all 0.2s", fontFamily: "'DM Sans', sans-serif"
+                  }}
+                >Get Quote</button>
+                <a
+                  href="https://wa.me/917696939529"
+                  target="_blank" rel="noreferrer"
+                  style={{
+                    width: 38, height: 38, background: "#dcfce7", color: "#16a34a",
+                    borderRadius: 9, display: "flex", alignItems: "center", justifyContent: "center",
+                    textDecoration: "none", fontSize: 17, flexShrink: 0
+                  }}
+                  title="WhatsApp"
+                >💬</a>
+              </div>
+            </div>
+          ))}
+          {filtered.length === 0 && (
+            <div style={{
+              gridColumn: "1/-1", textAlign: "center", padding: "60px 20px",
+              color: "#94a3b8", fontSize: 15
+            }}>
+              <div style={{ fontSize: 48, marginBottom: 12 }}>🔍</div>
+              No products found for "<b>{search}</b>"
+            </div>
+          )}
+        </div>
+
+        {/* Back Button */}
+        <button
+          onClick={onBackToCategory}
+          style={{
+            background: "#fff", color: cat.color, border: `2px solid ${cat.color}`,
+            padding: "12px 30px", borderRadius: 11, fontWeight: 800, fontSize: 14,
+            cursor: "pointer", fontFamily: "'DM Sans', sans-serif"
+          }}
+        >← Back to {cat.label}</button>
+      </div>
+    </section>
+  );
+}
+
+// ─── MAIN PRODUCTS COMPONENT ──────────────────────────────────
+function Products() {
+  const [view, setView] = useState("categories");
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [activeSubcategory, setActiveSubcategory] = useState(null);
+
+  const handleSelectCategory = (key) => {
+    setActiveCategory(key);
+    setView("subcategories");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleSelectSub = (subId) => {
+    setActiveSubcategory(subId);
+    setView("items");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleBackToCategories = () => {
+    setView("categories");
+    setActiveCategory(null);
+    setActiveSubcategory(null);
+    setTimeout(() => document.getElementById("products")?.scrollIntoView({ behavior: "smooth" }), 50);
+  };
+
+  const handleBackToSubcategories = () => {
+    setView("subcategories");
+    setActiveSubcategory(null);
+    setTimeout(() => document.getElementById("products")?.scrollIntoView({ behavior: "smooth" }), 50);
+  };
+
+  if (view === "subcategories" && activeCategory) {
+    return (
+      <SubcategoryScreen
+        categoryKey={activeCategory}
+        onBack={handleBackToCategories}
+        onSelectSub={handleSelectSub}
+      />
+    );
+  }
+
+  if (view === "items" && activeCategory && activeSubcategory) {
+    return (
+      <ItemsScreen
+        categoryKey={activeCategory}
+        subcategoryId={activeSubcategory}
+        onBack={handleBackToCategories}
+        onBackToCategory={handleBackToSubcategories}
+      />
+    );
+  }
+
+  return <CategoryScreen onSelect={handleSelectCategory} />;
+}
+
+export default Products;
