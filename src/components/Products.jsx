@@ -707,47 +707,101 @@ const productsData = {
         ],
       },
       {
-        id: "scada",
-        name: "SCADA Software",
-        icon: "📡",
-        desc: "Industrial SCADA, MES, DCS, Historian Software Licenses",
-        brands: ["Siemens WinCC", "Ignition", "Wonderware", "InTouch", "iFix", "Citect"],
-        items: [
-          "Siemens WinCC V7.5 Basic License",
-          "Siemens WinCC OA V3.18 Client",
-          "Siemens TIA Portal WinCC Advanced",
-          "Inductive Automation Ignition 8.1",
-          "Ignition Edge IIoT Gateway",
-          "AVEVA InTouch 2020 R2 License",
-          "AVEVA System Platform License",
-          "GE iFix SCADA Server License",
-          "Citect SCADA 2018 R2 License",
-          "Rockwell FactoryTalk View SE",
-          "Kepware KEPServerEX OPC Server",
-          "Matrikon OPC Explorer Client",
-          "OSIsoft PI Historian License",
-          "Canary Historian Software",
-          "COPA-DATA zenon 10 SCADA",
-          "mySCADA myDESIGNER License",
-          "ProSoft Technology OPC Server",
-          "Cimplicity 11.5 GE SCADA",
-          "Wonderware Historian Server 2020",
-          "IIoT Edge to Cloud Gateway License",
-        ],
-      },
+  id: "mitsubishi-hmi",
+  name: "Mitsubishi HMI (GOT2000 Series)",
+  icon: "🖥️",
+  desc: "Mitsubishi Electric GOT2000 Series Graphic Operation Terminals",
+  brands: ["Mitsubishi Electric GOT2000"],
+  items: [
+    // GT27 – Advanced model (multi-touch, 57MB ROM, 256MB RAM)
+    "Mitsubishi GT2715-XTBA GOT2000 15\" XGA HMI",
+    "Mitsubishi GT2715-XTBD GOT2000 15\" XGA HMI (DC)",
+    "Mitsubishi GT2712-STBA GOT2000 12.1\" SVGA HMI",
+    "Mitsubishi GT2712-STBD GOT2000 12.1\" SVGA HMI (DC)",
+    "Mitsubishi GT2712-STWA GOT2000 12.1\" SVGA White Model",
+    "Mitsubishi GT2712-STWD GOT2000 12.1\" SVGA White (DC)",
+    "Mitsubishi GT2705-VTBA GOT2000 5.7\" VGA HMI",
+    "Mitsubishi GT2705-VTBD GOT2000 5.7\" VGA HMI (DC)",
+
+    // GT25 – Mid-range model (32MB ROM, 80MB RAM)
+    "Mitsubishi GT2512-STBA GOT2000 12.1\" SVGA HMI",
+    "Mitsubishi GT2512-STBD GOT2000 12.1\" SVGA HMI (DC)",
+    "Mitsubishi GT2512F-STNA GOT2000 12.1\" Open Frame HMI",
+    "Mitsubishi GT2512F-STND GOT2000 12.1\" Open Frame (DC)",
+    "Mitsubishi GT2510-VTBA GOT2000 10.4\" VGA HMI",
+    "Mitsubishi GT2510-VTBD GOT2000 10.4\" VGA HMI (DC)",
+    "Mitsubishi GT2508-VTBA GOT2000 8.4\" VGA HMI",
+    "Mitsubishi GT2508-VTBD GOT2000 8.4\" VGA HMI (DC)",
+    "Mitsubishi GT2505-VTBA GOT2000 5.7\" VGA HMI",
+    "Mitsubishi GT2505-VTBD GOT2000 5.7\" VGA HMI (DC)",
+
+    // GT25 Rugged – Extreme environment / silver metal housing
+    "Mitsubishi GT25 Rugged Model GOT2000 HMI (Metal Housing)",
+
+    // GT25 Wide Model
+    "Mitsubishi GT25 Wide Model GOT2000 WVGA HMI",
+
+    // GT21 Wide – Wide screen, basic functions (15MB ROM)
+    "Mitsubishi GT2107-WTBD GOT2000 7\" WVGA Wide HMI (DC)",
+    "Mitsubishi GT2107-WTSD GOT2000 7\" WVGA Wide HMI (DC, slim)",
+
+    // GT21 – Compact basic models (9MB ROM)
+    "Mitsubishi GT2104-RTBD GOT2000 4.3\" WVGA Compact HMI",
+    "Mitsubishi GT2103-PMBD GOT2000 3.4\" Monochrome HMI (Ethernet)",
+    "Mitsubishi GT2103-PMBDS GOT2000 3.4\" Monochrome HMI (RS-232)",
+    "Mitsubishi GT2103-PMBDS2 GOT2000 3.4\" Monochrome HMI (RS-232×2ch)",
+    "Mitsubishi GT2103-PMBLS GOT2000 3.4\" Monochrome HMI (RS-422)",
+
+    // GS Series – Simple/cost-effective GOT
+    "Mitsubishi GS2110-WTBD-N GOT Simple Series 10.1\" HMI",
+    "Mitsubishi GS2107-WTBD GOT Simple 7\" WVGA HMI",
+
+    // Handy GOT
+    "Mitsubishi GT25 Handy GOT Portable HMI Terminal",
+
+    // GT SoftGOT2000 – PC-based software GOT
+    "Mitsubishi GT SoftGOT2000 PC-Based Software HMI License",
+
+    // Licenses & Software
+    "Mitsubishi MELSOFT GT Works3 Screen Design Software",
+    "Mitsubishi GOT Mobile Function License",
+    "Mitsubishi VNC Server Function License",
+    "Mitsubishi MES I/F Function License",
+    "Mitsubishi Remote PC Operation Function (Ethernet) License",
+  ],
+},
     ],
   },
 };
 
 // ─── STYLES ───────────────────────────────────────────────────
 const globalStyle = `
-  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap');
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'DM Sans', sans-serif; }
-  button { font-family: 'DM Sans', sans-serif; }
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: #f1f5f9; }
-  ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+  * { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+  }
+
+  body { 
+    font-family: Arial, sans-serif; 
+  }
+
+  button { 
+    font-family: Arial, sans-serif; 
+  }
+
+  ::-webkit-scrollbar { 
+    width: 6px; 
+  }
+
+  ::-webkit-scrollbar-track { 
+    background: #f1f5f9; 
+  }
+
+  ::-webkit-scrollbar-thumb { 
+    background: #cbd5e1; 
+    border-radius: 3px; 
+  }
 `;
 
 // ─── CATEGORY SCREEN ──────────────────────────────────────────
@@ -785,10 +839,10 @@ function CategoryScreen({ onSelect }) {
     {
       key: "hmi",
       icon: "📱",
-      label: "HMI & SCADA",
+      label: "HMI",
       color: "#b45309",
       bg: "linear-gradient(135deg, #b45309 0%, #f59e0b 100%)",
-      desc: "Siemens KTP/TP • Weintek cMT • Delta DOP • SCADA WinCC • Ignition • InTouch",
+      desc: "Siemens KTP/TP • Weintek cMT • Delta DOP • Mishtubishi • Ignition • InTouch",
       sub: `${productsData.hmi.subcategories.length} subcategories`,
     },
   ];
