@@ -125,7 +125,7 @@ function About() {
                 Complete Industrial Automation & PLC Panel Solutions
               </h3>
               <p style={{ color: '#475569', lineHeight: '1.8', marginBottom: '16px', fontSize: '15px' }}>
-                Founded in 2024 by <strong style={{ color: '#0f172a' }}>Uma Bharti</strong>, New MechTech India delivers advanced automation systems. We specialize in PLC Panels, HMI Systems, SCADA, VFD Drives, Sensors and Control Panels.
+                Founded in 2024 by <strong style={{ color: '#0f172a' }}>Uma Bharti</strong>, NewMechTechIndia delivers advanced automation systems. We specialize in PLC Panels, HMI Systems, Mechanical Components, Pneumatic Components, VFD Drives, Sensors, and Control Panels.
               </p>
               <p style={{ color: '#475569', lineHeight: '1.8', marginBottom: '28px', fontSize: '15px' }}>
                 We serve manufacturing, pharma, packaging, textiles and food processing industries across India.
@@ -218,7 +218,7 @@ function About() {
       {/* Contact Details */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', minWidth: '240px' }}>
         {[
-          { icon: '📧', val: 'newmechtechindia@gmail.com', href: 'mailto:newmechtechindia@gmail.com' },
+          { icon: '📧', val: 'sales@newmechtech.com', href: 'mailto:sales@newmechtech.com' },
           { icon: '📍', val: 'Dera Bassi, Punjab – 140507', href: null },
           { icon: '⏰', val: 'Mon–Sat: 9 AM – 7 PM', href: null },
         ].map((item, i) => (

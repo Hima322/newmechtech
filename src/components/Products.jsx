@@ -1,14 +1,10 @@
-
-
 import { useState, useEffect } from "react";
 
 // ─── SLIDESHOW IMAGE LISTS ─────────────────────────────────────
-// Har category/subcategory ke liye images ka array
-// Aap yahan apne actual image filenames daal do
-// Convention: /assets/images/FolderName/filename.png
+
 
 const slideshowImages = {
-  // ── ELECTRICAL subcategories ──
+  
   plc: [
     "/assets/images/Electrical/plc/1.png",
     "/assets/images/Electrical/plc/2.png",
@@ -100,16 +96,11 @@ const slideshowImages = {
   ],
 
   // ── MECHANICAL subcategories ──
-  hydraulics: [
-    "/assets/images/Machnical/hydraulics/1.png",
-    "/assets/images/Machnical/hydraulics/2.png",
-    "/assets/images/Machnical/hydraulics/3.png",
-  ],
   motors: [
-    "/assets/images/Machnical/motors/1.png",
-    "/assets/images/Machnical/motors/2.png",
-    "/assets/images/Machnical/motors/3.png",
-    "/assets/images/Machnical/motors/4.png",
+    "/assets/images/Machnical/motors/a.jpeg",
+    "/assets/images/Machnical/motors/b.jpeg",
+    "/assets/images/Machnical/motors/c.jpeg",
+    "/assets/images/Machnical/motors/d.jpeg",
   ],
   cables: [
     "/assets/images/Machnical/cables/1.png",
@@ -132,7 +123,7 @@ const slideshowImages = {
     "/assets/images/Machnical/couplings/3.png",
   ],
 
-  // ── HARDWARE subcategories ──
+  // ── HARDWARE subcategories (now inside Mechanical) ──
   fasteners: [
     "/assets/images/Harware/fasteners/1.png",
     "/assets/images/Harware/fasteners/2.png",
@@ -163,7 +154,59 @@ const slideshowImages = {
     "/assets/images/pnumatic/5.png",
   ],
 
-  // ── CATEGORY LEVEL (main 4 cards ke liye) ──
+  // ── HYDRAULICS subcategories ──
+  hydraulic_cylinders: [
+    "/assets/images/Hydraulics/cylinders/1.png",
+    "/assets/images/Hydraulics/cylinders/2.png",
+    "/assets/images/Hydraulics/cylinders/3.png",
+  ],
+  hydraulic_pumps: [
+    "/assets/images/Hydraulics/pumps/1.png",
+    "/assets/images/Hydraulics/pumps/2.png",
+    "/assets/images/Hydraulics/pumps/3.png",
+  ],
+  hydraulic_valves: [
+    "/assets/images/Hydraulics/valves/1.png",
+    "/assets/images/Hydraulics/valves/2.png",
+    "/assets/images/Hydraulics/valves/3.png",
+  ],
+  hydraulic_motors: [
+    "/assets/images/Hydraulics/motors/1.png",
+    "/assets/images/Hydraulics/motors/2.png",
+    "/assets/images/Hydraulics/motors/3.png",
+  ],
+  hydraulic_seals: [
+    "/assets/images/Hydraulics/seals/1.png",
+    "/assets/images/Hydraulics/seals/2.png",
+    "/assets/images/Hydraulics/seals/3.png",
+  ],
+  hydraulic_filters: [
+    "/assets/images/Hydraulics/filters/1.png",
+    "/assets/images/Hydraulics/filters/2.png",
+    "/assets/images/Hydraulics/filters/3.png",
+  ],
+  hydraulic_hoses: [
+    "/assets/images/Hydraulics/hoses/1.png",
+    "/assets/images/Hydraulics/hoses/2.png",
+    "/assets/images/Hydraulics/hoses/3.png",
+  ],
+  hydraulic_accumulators: [
+    "/assets/images/Hydraulics/accumulators/1.png",
+    "/assets/images/Hydraulics/accumulators/2.png",
+    "/assets/images/Hydraulics/accumulators/3.png",
+  ],
+  hydraulic_manifolds: [
+    "/assets/images/Hydraulics/manifolds/1.png",
+    "/assets/images/Hydraulics/manifolds/2.png",
+    "/assets/images/Hydraulics/manifolds/3.png",
+  ],
+  hydraulic_powerpack: [
+    "/assets/images/Hydraulics/powerpack/1.png",
+    "/assets/images/Hydraulics/powerpack/2.png",
+    "/assets/images/Hydraulics/powerpack/3.png",
+  ],
+
+  // ── CATEGORY LEVEL (main cards ke liye) ──
   electrical_main: [
     "/assets/images/Electrical/plc/1.png",
     "/assets/images/Electrical/vfd/1.png",
@@ -172,22 +215,24 @@ const slideshowImages = {
     "/assets/images/Electrical/mcc/1.png",
   ],
   mechanical_main: [
-    "/assets/images/Machnical/motors/1.png",
-    "/assets/images/Machnical/hydraulics/1.png",
+    "/assets/images/Machnical/motors/1.jpeg",
     "/assets/images/Machnical/cables/1.png",
     "/assets/images/Machnical/belts_pulleys/1.png",
-  ],
-  hardware_main: [
-    "/assets/images/Harware/fasteners/1.png",
-    "/assets/images/Harware/tools/1.png",
-    "/assets/images/Harware/enclosures/1.png",
-    "/assets/images/Harware/din_rail/1.png",
+    "/assets/images/Machnical/couplings/1.png",
+    "/assets/images/Machnical/fasteners/1.png",
   ],
   pneumatics_main: [
     "/assets/images/pnumatic/1.png",
     "/assets/images/pnumatic/2.png",
     "/assets/images/pnumatic/3.png",
     "/assets/images/pnumatic/4.png",
+  ],
+  hydraulics_main: [
+    "/assets/images/Hydraulics/cylinders/1.png",
+    "/assets/images/Hydraulics/pumps/1.png",
+    "/assets/images/Hydraulics/valves/1.png",
+    "/assets/images/Hydraulics/motors/1.png",
+    "/assets/images/Hydraulics/powerpack/1.png",
   ],
 };
 
@@ -345,13 +390,9 @@ const productsData = {
     icon: "⚙️",
     color: "#0f766e",
     bg: "linear-gradient(135deg, #0f766e 0%, #14b8a6 100%)",
-    desc: "Complete mechanical components for industrial machinery and automation",
+    desc: "Complete mechanical & hardware components for industrial machinery and automation",
     slideKey: "mechanical_main",
     subcategories: [
-      { id: "hydraulics", name: "Hydraulics", icon: "🛢️",
-        desc: "Hydraulic Cylinders, Pumps, Valves, Manifolds, Seals & Fittings",
-        brands: ["Bosch Rexroth", "Parker", "Eaton", "Vickers", "Yuken", "Hydraforce"],
-        items: ["Bosch Rexroth CDT3 Hydraulic Cylinder Ø63","Bosch Rexroth CDL1 Cylinder Ø80-200mm","Parker TIE-ROD Cylinder 50Ø x 200mm","Eaton Vickers V10 Vane Pump 2.3 GPM","Bosch Rexroth A10VO45 Piston Pump","Yuken PV2R1-8-F1 Vane Pump","Parker PVP41 Piston Pump","Bosch Rexroth 4WE6 Directional Valve","Vickers DG4V-3S-2N Solenoid Valve","Eaton DG4S4-012N-B Solenoid Valve","Hydraforce SV10-20 Cartridge Valve","Bosch Rexroth RVP10 Pressure Relief","Parker RVDA Relief Valve 350 Bar","Bosch Rexroth MSE-6 Hydraulic Motor","Parker TB0310 Manifold Block","NBR Hydraulic Cylinder Seal Kit 63mm","Parker Hannifin 30-piece Fitting Kit","Hydac BF3HC/HC-330 Return Filter","Parker 932 Series 10L Accumulator","Pressure Gauge 0-250 Bar Glycerin"] },
       { id: "motors", name: "Motors & Gearboxes", icon: "🔩",
         desc: "3-Phase Induction Motors, Servo Motors, Gear Reducers, Worm Gearboxes",
         brands: ["ABB", "Siemens", "SEW", "Lenze", "Bonfiglioli", "Flender"],
@@ -372,17 +413,7 @@ const productsData = {
         desc: "Rigid, Flexible, Jaw, Oldham, Bellows Couplings, Keyway Shafts",
         brands: ["Rexnord", "R+W", "Huco", "KTR", "Miki Pulley", "Mayr"],
         items: ["KTR ROTEX GR 14 Jaw Coupling D=14mm","KTR BOWEX M-18 Curved Tooth Coupling","Huco Oldham Coupling 16mm Bore","R+W BK1/500/AA Bellows Coupling","Mayr ROBA-DS Disc Coupling Ø65mm","Miki Pulley SFC-040-MZR Flex Coupling","Rexnord Thomas 52 Disc Coupling","KTR MONOLASTIC Rubber Coupling","Huco Rigid Coupling 16mm Ø30mm","Lenze Elastomer Coupling GFL-A 30","SKF Oldham Coupling 25mm Bore","Lovejoy Type L070 Jaw Coupling","Rexnord Zero-Max Steel Laminar","Igus igumid Backlash-Free Coupling","R+W EKM/50 Miniature Bellows 8mm","Mayr ROBA-brake-checker Module","Keyway Shaft 25mm H6 CK45 1M","Linear Shaft 20mm h6 Hardened 1M","Splined Shaft DIN 5481 22x28mm","Thomson Precision Shaft 25mm Case"] },
-    ],
-  },
-
-  hardware: {
-    label: "Hardware",
-    icon: "🔩",
-    color: "#92400e",
-    bg: "linear-gradient(135deg, #92400e 0%, #d97706 100%)",
-    desc: "Industrial hardware, fasteners, tools, enclosures and DIN rail accessories",
-    slideKey: "hardware_main",
-    subcategories: [
+      // ── HARDWARE subcategories moved inside Mechanical ──
       { id: "fasteners", name: "Fasteners & Fixings", icon: "🔩",
         desc: "Bolts, Nuts, Screws, Washers, Threaded Rods, Anchor Fasteners – All Grades",
         brands: ["Hilti", "Fischer", "Würth", "Bossard", "Hexagon", "Unbrako"],
@@ -399,6 +430,277 @@ const productsData = {
         desc: "DIN Rails, Cable Ducts, Trunking, Wire Markers, Ferrules, Accessories",
         brands: ["Phoenix", "Wago", "Schneider", "HellermannTyton", "Panduit", "Legrand"],
         items: ["Top Hat DIN Rail 35x15mm 2M Steel Zinc","Top Hat DIN Rail 35x7.5mm 1M Punched","Omega Rail 32mm C-Section 2M","Schneider AM1DP200 Cable Duct 25x25mm","Schneider AM1DP800 Slotted Trunking 75x75","HellermannTyton ALPHA 35 Cable Duct 35x35","Panduit LD3X3WH2 Wire Duct 78x78mm","Wago 209-102 End Stop for DIN Rail","Phoenix ZB 4 End Bracket for UK Terminals","Vinyl Wire Marker Strip 0-9 Set 100Pc","Brady Clip Sleeve Wire Marker AWG 18-14","HellermannTyton TULT27 Cable Tie 270mm","Self-Adhesive Cable Tie Mount 25x25mm","End Plate for Phoenix UK4 Terminals","DIN Rail Ferrule 1.5mm² Red E1508 (100Pc)","DIN Rail Ferrule 2.5mm² Blue E2508","Insulated Ferrule Kit 0.5-6mm² Assorted","Spiral Cable Wrap 10mm x 5M Black","Split Loom Tubing 20mm Black x 10M","Velcro Cable Tie 200mm Reusable (10Pc)"] },
+    ],
+  },
+
+  hydraulics: {
+    label: "Hydraulics",
+    icon: "🛢️",
+    color: "#b91c1c",
+    bg: "linear-gradient(135deg, #b91c1c 0%, #ef4444 100%)",
+    desc: "Complete hydraulic systems & components for heavy industrial machinery",
+    slideKey: "hydraulics_main",
+    subcategories: [
+      { id: "hydraulic_cylinders", name: "Hydraulic Cylinders", icon: "🔴",
+        desc: "Tie-Rod, Mill Type, Telescopic, Welded, Custom Hydraulic Cylinders – 10mm to 500mm Bore",
+        brands: ["Bosch Rexroth", "Parker", "Eaton", "Hydraforce", "Yuken", "Wipro"],
+        items: [
+          "Bosch Rexroth CDT3 Tie-Rod Cylinder Ø40mm 200mm Stroke",
+          "Bosch Rexroth CDT3 Tie-Rod Cylinder Ø63mm 300mm Stroke",
+          "Bosch Rexroth CDT3 Tie-Rod Cylinder Ø80mm 500mm Stroke",
+          "Bosch Rexroth CDL1 Mill Type Cylinder Ø100mm 600mm Stroke",
+          "Parker TIE-ROD Cylinder Ø50mm x 200mm 250Bar",
+          "Parker TIE-ROD Cylinder Ø80mm x 400mm 250Bar",
+          "Parker 3L Series Mill Cylinder Ø125mm 700Bar",
+          "Eaton Vickers MF Series Mill Cylinder Ø100mm",
+          "Telescopic Cylinder 3-Stage Ø80-160mm 1500mm",
+          "Telescopic Cylinder 4-Stage Ø100-200mm 2000mm",
+          "Double Acting Cylinder Ø63mm 500mm Stroke 160Bar",
+          "Single Acting Spring Return Cylinder Ø40mm 150mm",
+          "Side Mount Cylinder Ø50mm 300mm Stroke MS2",
+          "Flange Mount Cylinder Ø80mm 400mm Stroke MF4",
+          "Trunnion Mount Cylinder Ø100mm 600mm MT4",
+          "Rotary Actuator Cylinder 180° Rack & Pinion",
+          "Compact Hydraulic Cylinder Ø32mm 50mm Stroke",
+          "Hollow Plunger Cylinder 20 Ton 150mm Stroke",
+          "Lock-Nut Cylinder 50 Ton for Press Machines",
+          "Custom Cylinder Non-Standard Bore to Drawing",
+        ],
+      },
+      { id: "hydraulic_pumps", name: "Hydraulic Pumps", icon: "💧",
+        desc: "Gear Pumps, Vane Pumps, Piston Pumps, Radial Piston – 1 cc to 500 cc/rev",
+        brands: ["Bosch Rexroth", "Parker", "Yuken", "Eaton Vickers", "Denison", "Casappa"],
+        items: [
+          "Bosch Rexroth A10VO18 Axial Piston Variable Pump 18cc",
+          "Bosch Rexroth A10VO45 Axial Piston Variable Pump 45cc",
+          "Bosch Rexroth A10VO71 Axial Piston Variable Pump 71cc",
+          "Bosch Rexroth A10VO100 Axial Piston Variable Pump 100cc",
+          "Parker PV016 Axial Piston Pump 16cc/rev",
+          "Parker PV063 Axial Piston Pump 63cc/rev",
+          "Parker PVP41 Variable Piston Pump",
+          "Eaton Vickers V10 Vane Pump 2.3 GPM",
+          "Eaton Vickers V20 Vane Pump 4.6 GPM",
+          "Eaton Vickers 45V Vane Pump High Pressure",
+          "Yuken PV2R1-8-F1 Double Vane Pump",
+          "Yuken PV2R2-26-F1 Vane Pump 26cc/rev",
+          "Yuken AR16 Variable Piston Pump",
+          "Casappa KP 20 Gear Pump 20cc/rev",
+          "Casappa PLP20 Gear Pump Aluminium 20cc",
+          "Bosch Rexroth AZPF Gear Pump 11cc Fixed",
+          "Parker PGP505 Gear Pump 8cc/rev Cast Iron",
+          "Denison P7P Piston Pump 100cc Variable",
+          "Radial Piston Pump High Pressure 700Bar",
+          "Hydraulic Hand Pump Double Acting 700Bar",
+        ],
+      },
+      { id: "hydraulic_valves", name: "Hydraulic Valves", icon: "🔵",
+        desc: "Directional, Pressure Relief, Check, Flow Control, Proportional, Servo Valves",
+        brands: ["Bosch Rexroth", "Parker", "Vickers", "Sun Hydraulics", "Hydraforce", "Cetop"],
+        items: [
+          "Bosch Rexroth 4WE6D Directional Solenoid Valve D03",
+          "Bosch Rexroth 4WE10D Directional Solenoid Valve D05",
+          "Bosch Rexroth 4WEH22 High Flow Directional Valve",
+          "Parker D1VW004 Directional Valve D03 24VDC",
+          "Parker D3W004 Directional Valve D05 24VDC",
+          "Vickers DG4V-3S-2N Solenoid Valve 24VDC",
+          "Bosch Rexroth DBD Pressure Relief Valve D03",
+          "Bosch Rexroth DBDS Pressure Relief Valve 50-315Bar",
+          "Parker RV10-20 Relief Valve 3/8 BSP 350Bar",
+          "Sun Hydraulics CBCA Counterbalance Valve",
+          "Bosch Rexroth Z2S Check Valve Pilot Operated",
+          "Parker C12-A-2 Check Valve 1/2 BSP",
+          "Bosch Rexroth 2FRM Flow Control Valve",
+          "Bosch Rexroth MK Flow Control with Check Valve",
+          "Parker FCG Needle Valve Flow Control 3/8 BSP",
+          "Bosch Rexroth 4WRPH Proportional Directional Valve",
+          "Moog D661 Series Servo Valve 2-Stage",
+          "Hydraforce SV10-20 Cartridge Solenoid Valve",
+          "Cetop 3 D03 Hydraulic Manifold Block 4 Station",
+          "Cetop 5 D05 Hydraulic Manifold Block 6 Station",
+        ],
+      },
+      { id: "hydraulic_motors", name: "Hydraulic Motors", icon: "⚙️",
+        desc: "Gear Motors, Vane Motors, Radial Piston Motors, High Torque Low Speed",
+        brands: ["Bosch Rexroth", "Parker", "Eaton", "White Drive", "Danfoss", "Calzoni"],
+        items: [
+          "Bosch Rexroth A2FM28 Axial Piston Motor 28cc",
+          "Bosch Rexroth A2FM56 Axial Piston Motor 56cc",
+          "Bosch Rexroth A2FM107 Axial Piston Motor 107cc",
+          "Bosch Rexroth MCR Radial Piston Motor 03",
+          "Bosch Rexroth MCR Radial Piston Motor 05 High Torque",
+          "Parker F12-030 Piston Motor 30cc/rev",
+          "Parker F12-060 Piston Motor 60cc/rev",
+          "Eaton 74318 Orbit Motor Charlynn 200cc",
+          "Eaton 74400 Orbit Motor Charlynn 400cc",
+          "White Drive WD OMP 160cc Orbital Motor",
+          "Danfoss OMS 160cc Orbital Motor SAE",
+          "Danfoss OMP 80cc Orbital Sauer Motor",
+          "Bosch Rexroth MGE Gear Motor 18cc/rev",
+          "Parker TG Series Gear Motor 32cc/rev",
+          "Staffa HMB 125 Radial Piston Motor High Torque",
+          "Calzoni MR Radial Motor 250cc Low Speed",
+          "Poclain MS 18 Cam Lobe Motor 18cc",
+          "Poclain MS 50 Cam Lobe Motor 50cc",
+          "Hydraulic Winch Motor 2-Speed 250Bar",
+          "Bent Axis Motor 32cc Variable Displacement",
+        ],
+      },
+      { id: "hydraulic_seals", name: "Seals & Seal Kits", icon: "🔶",
+        desc: "Hydraulic Cylinder Seals, Pump Seals, Valve Seals – NBR, PU, PTFE, Viton",
+        brands: ["Hallite", "Parker", "NOK", "Trelleborg", "Freudenberg", "SKF"],
+        items: [
+          "Hallite 605 U-Cup Seal Ø40mm NBR Piston Seal",
+          "Hallite 605 U-Cup Seal Ø63mm NBR Piston Seal",
+          "Hallite 605 U-Cup Seal Ø80mm NBR Piston Seal",
+          "Hallite 605 U-Cup Seal Ø100mm Polyurethane",
+          "Parker HX Step Seal Piston 50mm Teflon",
+          "Parker Z-Ring Sealing System 63mm",
+          "Trelleborg Turcon Roto Glyd Ring Rod Seal",
+          "Trelleborg Stepseal 2K Piston Seal 63mm",
+          "NOK UC Rod Seal 40mm NBR Hydraulic",
+          "NOK DH Dust Wiper Seal 50mm Single Lip",
+          "Freudenberg Simrit Rod Seal 40x56x10mm",
+          "SKF Speedi-Sleeve Shaft Repair Sleeve 40mm",
+          "O-Ring NBR 70 Shore Ø50x3mm (Pack 10)",
+          "O-Ring Viton FKM 80 Shore Ø63x3.5mm",
+          "Backup Ring PTFE Ø50mm DIN 3761",
+          "Cylinder Repair Seal Kit Ø63mm Complete",
+          "Cylinder Repair Seal Kit Ø80mm Complete",
+          "Cylinder Repair Seal Kit Ø100mm Complete",
+          "Pump Seal Kit Bosch Rexroth A10VO45",
+          "Valve Seal Kit Rexroth 4WE6 O-Ring Set",
+        ],
+      },
+      { id: "hydraulic_filters", name: "Hydraulic Filters", icon: "🟡",
+        desc: "Return Line Filters, Pressure Filters, Suction Strainers, Filter Elements",
+        brands: ["Hydac", "Parker", "Mahle", "Internormen", "Stauff", "Pall"],
+        items: [
+          "Hydac BF3HC/HC-025 Return Filter 25 Micron",
+          "Hydac BF3HC/HC-010 Return Filter 10 Micron",
+          "Hydac BF3HC/HC-003 Return Filter 3 Micron",
+          "Hydac RFM BN/HC High Pressure Filter 100Bar",
+          "Parker LPF0204-010WV Low Pressure Filter 10µ",
+          "Parker HF3L5-10-WV High Pressure Filter 350Bar",
+          "Mahle PI 180 Return Filter Element 10 Micron",
+          "Mahle KF100D10W Pressure Filter 250Bar",
+          "Internormen 01.E 150.10VG Return Filter",
+          "Pall HC6400 Hydraulic Filter Element 10µ",
+          "Stauff RFBN Return Filter with Bypass Indicator",
+          "Suction Strainer 100 Mesh 1 BSP Tank Mount",
+          "Suction Strainer 200 Micron 1.5 BSP",
+          "Off-Line Kidney Loop Filter Unit 10 LPM",
+          "Duplex Filter Changeover Valve 350Bar 10µ",
+          "Air Breather Filter 3 Micron Tank Mounted",
+          "Filler Breather Cap 74 Micron for Hydraulic Tank",
+          "Hydac EDS Clog Indicator Differential Pressure",
+          "Filter Element Hydac 0060 D 010 BN3HC",
+          "Filter Element Parker 932754Q 10 Micron",
+        ],
+      },
+      { id: "hydraulic_hoses", name: "Hoses, Fittings & Pipes", icon: "🔩",
+        desc: "Hydraulic Hoses, JIC Fittings, BSP Fittings, Adapters, Stainless Tubes",
+        brands: ["Parker", "Gates", "Eaton Weatherhead", "Manuli", "Alfagomma", "Stauff"],
+        items: [
+          "Parker 451TC Hose SAE 100R1AT 1/4\" 225Bar",
+          "Parker 451TC Hose SAE 100R1AT 1/2\" 165Bar",
+          "Parker 451TC Hose SAE 100R1AT 3/4\" 125Bar",
+          "Parker 381 Hose SAE 100R2AT 1/2\" 400Bar",
+          "Parker 422 PTFE Lined Hose 1/4\" 350Bar",
+          "Gates MXT Hydraulic Hose 1/2\" 275Bar",
+          "Eaton Synflex 3130 Thermoplastic Hose 1/4\"",
+          "High Pressure Hose SAE 100R15 1/2\" 420Bar",
+          "Spiral Hose 4-Wire SAE 100R12 3/4\" 420Bar",
+          "BSP Female Swivel 90° Elbow 1/2\" x 1/2\" BSP",
+          "JIC 37° Male Fitting 9/16-18 UNF Straight",
+          "ORFS O-Ring Face Seal Fitting 9/16-18 UNF",
+          "BSP Male Connector 1/2\" Hose Tail Fitting",
+          "BSP Tee Piece 1/2\" Equal Tee Connector",
+          "Reducer BSP 3/4\" Male to 1/2\" Female",
+          "Quick Release Coupler 1/2\" BSP Aeroquip Style",
+          "Stauff Clamp Single RS 20 Tube Clamp 22mm",
+          "Stauff Double Clamp RSS 12 for 12mm Tube",
+          "Hydraulic Tube Seamless 25mm OD 4mm Wall",
+          "Hydraulic Tube Seamless 38mm OD 4mm Wall DIN 2391",
+        ],
+      },
+      { id: "hydraulic_accumulators", name: "Accumulators", icon: "🟠",
+        desc: "Bladder, Diaphragm, Piston Accumulators – Energy Storage, Pulsation Damping",
+        brands: ["Hydac", "Parker", "Bosch Rexroth", "Olaer", "Epoll", "NOK"],
+        items: [
+          "Hydac SB330 Bladder Accumulator 0.5L 330Bar",
+          "Hydac SB330 Bladder Accumulator 1L 330Bar",
+          "Hydac SB330 Bladder Accumulator 4L 330Bar",
+          "Hydac SB330 Bladder Accumulator 10L 330Bar",
+          "Hydac SB330 Bladder Accumulator 20L 330Bar",
+          "Parker A2 Bladder Accumulator 1L 350Bar",
+          "Parker A2 Bladder Accumulator 4L 350Bar",
+          "Bosch Rexroth HAB Bladder Accumulator 4L",
+          "Hydac SBO Diaphragm Accumulator 0.075L",
+          "Hydac SBO Diaphragm Accumulator 0.35L 350Bar",
+          "Olaer ELM Diaphragm Accumulator 0.5L",
+          "Piston Accumulator 10L 350Bar Carbon Steel",
+          "Piston Accumulator 25L 400Bar High Pressure",
+          "Piston Accumulator 50L 250Bar Low Pressure",
+          "Hydac Bladder Element NBR Replacement 4L",
+          "Hydac Bladder Element Viton 4L High Temp",
+          "Accumulator Safety Block SAF-18-250",
+          "Accumulator Charging Kit Gas Valve Fill Rig",
+          "Nitrogen Gas Valve Schrader Type M28x1.5",
+          "Pulsation Damper Inline 0.3L 250Bar BSP",
+        ],
+      },
+      { id: "hydraulic_manifolds", name: "Manifolds & Power Units", icon: "🟤",
+        desc: "Custom Manifold Blocks, Cetop Manifolds, Sub-Plates, Sandwich Valves",
+        brands: ["Bosch Rexroth", "Parker", "Hydrocontrol", "Walvoil", "Bucher", "Sun Hydraulics"],
+        items: [
+          "Cetop 3 D03 Manifold 2-Station Aluminium",
+          "Cetop 3 D03 Manifold 4-Station Aluminium",
+          "Cetop 3 D03 Manifold 6-Station Aluminium",
+          "Cetop 5 D05 Manifold 2-Station Cast Iron",
+          "Cetop 5 D05 Manifold 4-Station Cast Iron",
+          "Cetop 7 D07 Manifold 2-Station",
+          "Custom Manifold Block Aluminium To Drawing",
+          "Custom Manifold Block Steel High Pressure 500Bar",
+          "Sandwich Valve Pressure Reducing D03",
+          "Sandwich Valve Check Valve D03 Pilot Operated",
+          "Integrated Valve Block Drilling Machine 6 Functions",
+          "Walvoil DPX Multi-Way Load Sensing Valve",
+          "Bucher HDS 16/20 Directional Control Valve",
+          "Sun Hydraulics Cavity Drilled Manifold",
+          "Solenoid Valve Coil 24VDC DIN43650 for D03",
+          "Solenoid Valve Coil 230VAC for D05 Valve",
+          "Manual Override Button for Solenoid Valve",
+          "Pressure Gauge Port Block 1/4 BSP Inline",
+          "Test Point Minimess 1/4 BSP Schrader",
+          "Drain Manifold Block for Pump Return Lines",
+        ],
+      },
+      { id: "hydraulic_powerpack", name: "Hydraulic Power Packs", icon: "🏭",
+        desc: "Complete Hydraulic Power Units – Standard & Custom – 0.5kW to 75kW",
+        brands: ["Bosch Rexroth", "Parker", "Custom Build", "Enerpac", "SPX", "Hawe"],
+        items: [
+          "Hydraulic Power Pack 0.75kW 3LPM 100Bar",
+          "Hydraulic Power Pack 1.5kW 6LPM 150Bar",
+          "Hydraulic Power Pack 2.2kW 10LPM 200Bar",
+          "Hydraulic Power Pack 3.7kW 18LPM 200Bar",
+          "Hydraulic Power Pack 5.5kW 25LPM 250Bar",
+          "Hydraulic Power Pack 7.5kW 35LPM 250Bar",
+          "Hydraulic Power Pack 11kW 50LPM 300Bar",
+          "Hydraulic Power Pack 15kW 70LPM 300Bar",
+          "Hydraulic Power Pack 22kW 100LPM 250Bar",
+          "Hydraulic Power Pack 37kW 150LPM 300Bar",
+          "Hydraulic Power Pack 55kW 250LPM 300Bar",
+          "Hydraulic Power Pack 75kW 350LPM 300Bar",
+          "Mini Power Pack 12VDC 2LPM Single Acting",
+          "Mini Power Pack 24VDC 3LPM Double Acting",
+          "Compact Power Pack AC Motor Top Mounted",
+          "Power Pack with Load Sensing Control",
+          "Power Pack with PLC Control Panel",
+          "Power Pack Water Cooled High Duty Cycle",
+          "Power Pack Stainless Steel Food Grade IP65",
+          "Power Pack with Remote Monitoring IoT",
+        ],
+      },
     ],
   },
 
@@ -432,11 +734,12 @@ const globalStyle = `
 function CategoryScreen({ onSelect }) {
   const [hovered, setHovered] = useState(null);
 
+  // Sirf 4 cards — Hardware hata diya
   const cards = [
-    { key: "electrical",  icon: "⚡", label: "Electrical",  color: "#0047AB", bg: "linear-gradient(135deg,#0047AB,#1e6fd4)", desc: "PLC • VFD • SMPS • Sensors • Safety • Switchboard • Encoders • Control Panels • HMI", sub: `${productsData.electrical.subcategories.length} subcategories` },
-    { key: "mechanical",  icon: "⚙️", label: "Mechanical",  color: "#0f766e", bg: "linear-gradient(135deg,#0f766e,#14b8a6)", desc: "Hydraulics • Motors & Gearboxes • Cables • Chain • Belts & Bearings • Couplings",       sub: `${productsData.mechanical.subcategories.length} subcategories` },
-    { key: "hardware",    icon: "🔩", label: "Hardware",    color: "#92400e", bg: "linear-gradient(135deg,#92400e,#d97706)", desc: "Fasteners • Bolts & Nuts • Tools & Instruments • Enclosures • DIN Rail • Ferrules",     sub: `${productsData.hardware.subcategories.length} subcategories` },
-    { key: "pneumatics",  icon: "💨", label: "Pneumatics",  color: "#6d28d9", bg: "linear-gradient(135deg,#6d28d9,#8b5cf6)", desc: "Cylinders • Solenoid Valves • FRL Units • Vacuum Ejectors • Slide Tables • Fittings",  sub: `${productsData.pneumatics.subcategories.length} subcategory` },
+    { key: "electrical",  icon: "⚡",  label: "Electrical",  color: "#0047AB", bg: "linear-gradient(135deg,#0047AB,#1e6fd4)", desc: "PLC • VFD • SMPS • Sensors • Safety • Switchboard • Encoders • Control Panels • HMI", sub: `${productsData.electrical.subcategories.length} subcategories` },
+    { key: "mechanical",  icon: "⚙️",  label: "Mechanical",  color: "#0f766e", bg: "linear-gradient(135deg,#0f766e,#14b8a6)", desc: "Motors & Gearboxes • Cables • Cable Carrier • Belts & Bearings • Couplings • Fasteners • Tools • Enclosures • DIN Rail", sub: `${productsData.mechanical.subcategories.length} subcategories` },
+    { key: "pneumatics",  icon: "💨",  label: "Pneumatics",  color: "#6d28d9", bg: "linear-gradient(135deg,#6d28d9,#8b5cf6)", desc: "Cylinders • Solenoid Valves • FRL Units • Vacuum Ejectors • Slide Tables • Fittings",  sub: `${productsData.pneumatics.subcategories.length} subcategory` },
+    { key: "hydraulics",  icon: "🛢️",  label: "Hydraulics",  color: "#b91c1c", bg: "linear-gradient(135deg,#b91c1c,#ef4444)", desc: "Cylinders • Pumps • Valves • Motors • Seals • Filters • Hoses • Accumulators • Power Packs",  sub: `${productsData.hydraulics.subcategories.length} subcategories` },
   ];
 
   return (
@@ -500,14 +803,7 @@ function CategoryScreen({ onSelect }) {
           ))}
         </div>
 
-        {/* Info note */}
-        <div style={{ background: "#fff", borderRadius: 14, border: "1.5px solid #e2e8f0", padding: "20px 24px", marginBottom: 32, display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
-          <span style={{ fontSize: 28 }}>💡</span>
-          <div>
-            <p style={{ fontSize: 14, fontWeight: 800, color: "#0b1222", marginBottom: 4 }}>Control Panels &amp; HMI are inside Electrical</p>
-            <p style={{ fontSize: 13, color: "#64748b" }}>MCC Panel • PLC Panel • VFD Panel • APFC • AMF/DG Sync • Distribution Board • Siemens HMI • Weintek • Delta • Mitsubishi GOT2000</p>
-          </div>
-        </div>
+      
 
         {/* CTA */}
         <div style={{ background: "linear-gradient(135deg,#0b1222,#1e3a5f)", borderRadius: 18, padding: "42px 36px", textAlign: "center" }}>
@@ -659,7 +955,7 @@ function ItemsScreen({ categoryKey, subcategoryId, onBack, onBackToCategory }) {
           <p style={{ fontSize: 13, color: "#64748b", fontWeight: 600 }}><b style={{ color: cat.color }}>{filtered.length}</b> products</p>
         </div>
 
-        {/* Products — NO images, only name + quote */}
+        {/* Products */}
         {view === "grid" ? (
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(240px,1fr))", gap: 14, marginBottom: 40 }}>
             {filtered.map((item, i) => (
@@ -690,7 +986,7 @@ function ItemsScreen({ categoryKey, subcategoryId, onBack, onBackToCategory }) {
   );
 }
 
-// ─── GRID PRODUCT CARD (no image) ────────────────────────────
+// ─── GRID PRODUCT CARD ────────────────────────────
 function GridProductCard({ item, color, bg, icon }) {
   const [hovered, setHovered] = useState(false);
   return (
@@ -707,14 +1003,11 @@ function GridProductCard({ item, color, bg, icon }) {
         display: "flex", flexDirection: "column", gap: 14,
       }}
     >
-      {/* Top badge */}
       <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
         <span style={{ fontSize: 18 }}>{icon}</span>
         <span style={{ background: "#f0fdf4", color: "#16a34a", fontSize: 10, fontWeight: 800, padding: "3px 8px", borderRadius: 6 }}>✅ In Stock</span>
       </div>
-
       <p style={{ fontSize: 13.5, fontWeight: 700, color: "#0b1222", lineHeight: 1.5, flex: 1 }}>{item}</p>
-
       <div style={{ display: "flex", gap: 8 }}>
         <button
           onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
@@ -728,7 +1021,7 @@ function GridProductCard({ item, color, bg, icon }) {
   );
 }
 
-// ─── LIST PRODUCT CARD (no image) ────────────────────────────
+// ─── LIST PRODUCT CARD ────────────────────────────
 function ListProductCard({ item, color, bg, icon, index }) {
   const [hovered, setHovered] = useState(false);
   return (
@@ -744,7 +1037,6 @@ function ListProductCard({ item, color, bg, icon, index }) {
         boxShadow: hovered ? `0 6px 20px ${color}15` : "0 1px 4px rgba(0,0,0,0.04)",
       }}
     >
-      {/* Serial number */}
       <div style={{
         width: 36, height: 36, borderRadius: 10, flexShrink: 0,
         background: hovered ? bg : "#f1f5f9",
@@ -754,14 +1046,10 @@ function ListProductCard({ item, color, bg, icon, index }) {
       }}>
         {index + 1}
       </div>
-
-      {/* Name */}
       <div style={{ flex: 1 }}>
         <p style={{ fontSize: 14, fontWeight: 700, color: "#0b1222", margin: 0 }}>{item}</p>
         <p style={{ fontSize: 11, color: "#94a3b8", marginTop: 3 }}>{icon} Available • Request Quote</p>
       </div>
-
-      {/* Actions */}
       <div style={{ display: "flex", gap: 8, flexShrink: 0 }}>
         <button
           onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}

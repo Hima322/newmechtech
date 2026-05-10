@@ -24,7 +24,7 @@ const serviceLinks = [
 const contactItems = [
   { icon: '📍', text: 'Shop no.1, First Floor\nVillage Bhagwanpur, Barwla Road,\nDera Bassi, Punjab – 140507' },
   { icon: '📞', text: '+91-7696939529\n+91-9917592721' },
-  { icon: '📧', text: 'newmechtechindia@gmail.com' },
+  { icon: '📧', text: 'sales@newmechtech.com' },
   { icon: '⏰', text: 'Mon–Sat: 9 AM – 7 PM' },
 ]
 
@@ -41,7 +41,7 @@ const socialLinks = [
   },
   {
     label: 'Instagram',
-    href: 'https://www.instagram.com/YOUR-INSTAGRAM-ID',
+    href: 'https://www.instagram.com/@newmechtechindia',
     icon: instagramIcon,
   },
 ]

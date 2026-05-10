@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 function Contact() {
   const handleMailOpen = () => {
-    window.location.href = 'mailto:newmechtechindia@gmail.com'
+    window.location.href = 'mailto:sales@newmechtech.com'
   }
 
   return (
@@ -22,7 +22,7 @@ function Contact() {
             {[
               { icon: '📍', label: 'Address', val: 'Shop no.1, First Floor Village Bhagwanpur, Barwala Road, Dera Bassi, Punjab, 140507' },
               { icon: '📞', label: 'Phone', val: '+91-7696939529' },
-              { icon: '📧', label: 'Email', val: 'newmechtechindia@gmail.com' },
+              { icon: '📧', label: 'Email', val: 'sales@newmechtech.com' },
               { icon: '⏰', label: 'Hours', val: 'Mon–Sat: 9:00 AM – 7:00 PM' },
             ].map((item, i) => (
               <div key={i} style={{ background: '#fff', borderRadius: '14px', padding: '20px', border: '1px solid #e2e8f0', display: 'flex', gap: '14px' }}>
@@ -56,7 +56,7 @@ function Contact() {
               📩 Send Enquiry
             </button>
             <p style={{ color: '#94a3b8', fontSize: '13px', margin: 0 }}>
-              newmechtechindia@gmail.com
+             sales@newmechtech.com
             </p>
           </div>
 
