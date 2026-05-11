@@ -94,10 +94,10 @@ function About() {
                 <div style={{ position: 'absolute', top: '-40px', right: '-40px', width: '220px', height: '220px', borderRadius: '50%', background: 'rgba(255,255,255,0.06)' }} />
                 <div style={{ position: 'absolute', top: '40px', right: '40px', width: '120px', height: '120px', borderRadius: '50%', background: 'rgba(255,255,255,0.06)' }} />
                 <div style={{ fontSize: '80px', position: 'absolute', top: '32px', left: '40px', opacity: 0.2 }}>⚙️</div>
-                <div style={{ fontSize: '52px', marginBottom: '8px', fontWeight: '800', lineHeight: 1 }}>2+</div>
+                <div style={{ fontSize: '52px', marginBottom: '8px', fontWeight: '800', lineHeight: 1 }}>10+</div>
                 <div style={{ fontSize: '18px', opacity: 0.85, marginBottom: '28px' }}>Years of Excellence</div>
                 <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
-                  {[['50+','Projects Done'],['20+','Happy Clients'],['16+','Brands Stocked'],['24/7','Support']].map(([v, l]) => (
+                  {[['50+','Projects Done'],['100+','Happy Clients'],['45+','Brands Stocked'],['24/7','Support']].map(([v, l]) => (
                     <div key={l} style={{ background: 'rgba(255,255,255,0.12)', borderRadius: '10px', padding: '14px 16px', backdropFilter: 'blur(8px)' }}>
                       <div style={{ fontSize: '24px', fontWeight: '800', lineHeight: 1 }}>{v}</div>
                       <div style={{ fontSize: '12px', opacity: 0.75, marginTop: '4px' }}>{l}</div>
