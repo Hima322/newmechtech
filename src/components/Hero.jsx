@@ -94,9 +94,9 @@ const slides = [
 
 // ─── STATS DATA ───────────────────────────────
 const statsData = [
-  { target: 50,  suffix: '+',  label: 'Products Delivered' },
-  { target: 2,   suffix: '+',  label: 'Years Experience'   },
-  { target: 20,  suffix: '+',  label: 'Happy Clients'      },
+  { target: 150,  suffix: '+',  label: 'Products Delivered' },
+  { target: 10,   suffix: '+',  label: 'Years Experience'   },
+  { target: 100,  suffix: '+',  label: 'Happy Clients'      },
   { target: 24,  suffix: '/7', label: 'Support Available'  },
 ]
 
