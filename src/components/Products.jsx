@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 
-// ─── SLIDESHOW IMAGE LISTS ─────────────────────────────────────
 
 
 const slideshowImages = {
@@ -73,6 +72,11 @@ const slideshowImages = {
     "/assets/images/Electrical/amf/2.png",
     "/assets/images/Electrical/amf/3.png",
   ],
+    cables: [
+    "/assets/images/Machnical/cables/1.png",
+    "/assets/images/Machnical/cables/2.png",
+    "/assets/images/Machnical/cables/3.png",
+  ],
   distribution: [
     "/assets/images/Electrical/distribution/1.png",
     "/assets/images/Electrical/distribution/2.png",
@@ -101,11 +105,7 @@ const slideshowImages = {
     "/assets/images/Machnical/motors/c.jpeg",
     "/assets/images/Machnical/motors/d.jpeg",
   ],
-  cables: [
-    "/assets/images/Machnical/cables/1.png",
-    "/assets/images/Machnical/cables/2.png",
-    "/assets/images/Machnical/cables/3.png",
-  ],
+
   carrier_chain: [
     "/assets/images/Machnical/carrier_chain/1.png",
     "/assets/images/Machnical/carrier_chain/2.png",
@@ -124,24 +124,24 @@ const slideshowImages = {
 
   // ── HARDWARE subcategories (now inside Mechanical) ──
   fasteners: [
-    "/assets/images/Harware/fasteners/1.png",
-    "/assets/images/Harware/fasteners/2.png",
-    "/assets/images/Harware/fasteners/3.png",
+    "/assets/images/Machnical/fasteners/1.png",
+    "/assets/images/Machnical/fasteners/2.png",
+    "/assets/images/Machnical/fasteners/3.png",
   ],
   tools: [
-    "/assets/images/Harware/tools/1.png",
-    "/assets/images/Harware/tools/2.png",
-    "/assets/images/Harware/tools/3.png",
+    "/assets/images/Machnical/tools/1.png",
+    "/assets/images/Machnical/tools/2.png",
+    "/assets/images/Machnical/tools/3.png",
   ],
   enclosures: [
-    "/assets/images/Harware/enclosures/1.png",
-    "/assets/images/Harware/enclosures/2.png",
-    "/assets/images/Harware/enclosures/3.png",
+    "/assets/images/Machnical/enclosures/1.png",
+    "/assets/images/Machnical/enclosures/2.png",
+    "/assets/images/Machnical/enclosures/3.png",
   ],
   din_rail: [
-    "/assets/images/Harware/din_rail/1.png",
-    "/assets/images/Harware/din_rail/2.png",
-    "/assets/images/Harware/din_rail/3.png",
+    "/assets/images/Machnical/din_rail/1.png",
+    "/assets/images/Machnical/din_rail/2.png",
+    "/assets/images/Machnical/din_rail/3.png",
   ],
 
   // ── PNEUMATICS ──
