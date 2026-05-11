@@ -1,15 +1,22 @@
 import { useState, useEffect, useRef } from 'react'
 
-import imgProximity   from '../assets/ProximitySensor.jpeg'
-import imgLimitSwitch from '../assets/LimitSwitch.jpeg'
-import imgDCDrives    from '../assets/dcdrives.jpeg'
-import imgPLC         from '../assets/SimensePlc.webp'
-import a              from '../assets/a.jpeg'
-import b              from '../assets/b.jpeg'
-import c              from '../assets/c.jpeg'
-import d              from '../assets/d.jpeg'
-import e              from '../assets/e.jpeg'
-import f              from '../assets/f.png'
+import imgProximity    from '../assets/ProximitySensor.jpeg'
+import imgLimitSwitch  from '../assets/LimitSwitch.jpeg'
+import imgDCDrives     from '../assets/dcdrives.jpeg'
+import imgPLC          from '../assets/SimensePlc.webp'
+
+import a from '../assets/a.jpeg'
+import b from '../assets/b.jpeg'
+import c from '../assets/c.jpeg'
+import d from '../assets/d.jpeg'
+import e from '../assets/e.jpeg'
+import f from '../assets/f.png'
+
+import hiwinProducts   from '../assets/Hiwin.png'
+import gearboxImg      from '../assets/gearbox.jpeg'
+import cutterImg       from '../assets/cutter.jpeg'
+import ferriteRodImg   from '../assets/ferriterod.jpeg'
+import reductionGearImg from '../assets/reductiongearbox.jpeg'
 
 const slides = [
   {
@@ -19,26 +26,69 @@ const slides = [
     title: 'Smart PLC & Automation Systems',
     sub: 'Advanced programmable logic controllers, SCADA integration, and turnkey automation solutions for modern manufacturing.',
   },
+
   {
     bg: imgDCDrives,
     badge: 'Best Seller',
     tag: 'Drive Solutions',
     title: 'AC & DC Variable Frequency Drives',
-    sub: 'Premium VFDs, servo drives, and motor control systems from top brands — ABB, Siemens, Schneider, Delta.',
+    sub: 'Premium VFDs, servo drives, and motor control systems from top brands — ABB, Siemens, Schneider, and Delta.',
   },
+
   {
     bg: imgProximity,
     badge: 'Top Rated',
     tag: 'Sensing Technology',
     title: 'Industrial Sensors & Transducers',
-    sub: 'Proximity sensors, photoelectric sensors, pressure transmitters, temperature sensors for every application.',
+    sub: 'Proximity sensors, photoelectric sensors, pressure transmitters, and temperature sensors for every industrial application.',
   },
+
   {
     bg: imgLimitSwitch,
     badge: 'Wide Range',
     tag: 'Switching & Control',
     title: 'Limit Switches & Safety Devices',
     sub: 'Heavy-duty limit switches, safety relays, and position detectors for reliable machine control and protection.',
+  },
+
+  {
+    bg: hiwinProducts,
+    badge: 'Precision Motion',
+    tag: 'Motion Control & Automation',
+    title: 'HIWIN Precision Motion Products',
+    sub: 'Precision axes, electric actuators, rotary & swivel tables, servo motors, linear guideways, and ballscrews engineered for high-accuracy industrial automation applications.',
+  },
+
+  {
+    bg: gearboxImg,
+    badge: 'Industrial Power',
+    tag: 'Transmission Systems',
+    title: 'Industrial Gearbox Solutions',
+    sub: 'Heavy-duty industrial gearboxes designed for efficient torque transmission, smooth performance, and long operational life in demanding environments.',
+  },
+
+  {
+    bg: reductionGearImg,
+    badge: 'High Torque',
+    tag: 'Speed Reduction Systems',
+    title: 'Reduction Gearboxes',
+    sub: 'Compact and durable reduction gearboxes for precise speed control, high torque output, and reliable industrial machine performance.',
+  },
+
+  {
+    bg: cutterImg,
+    badge: 'Precision Cutting',
+    tag: 'Industrial Cutting Tools',
+    title: 'Industrial Cutters & Blades',
+    sub: 'High-performance industrial cutters, circular blades, and precision cutting tools for metal, plastic, paper, and packaging industries.',
+  },
+
+  {
+    bg: ferriteRodImg,
+    badge: 'Magnetic Components',
+    tag: 'Electrical & Electronics',
+    title: 'Ferrite Rods & Magnetic Cores',
+    sub: 'Premium quality ferrite rods and magnetic core components for transformers, inductors, antennas, and industrial electronic applications.',
   },
 ]
 
